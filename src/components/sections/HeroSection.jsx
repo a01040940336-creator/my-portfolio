@@ -27,7 +27,7 @@ export default function HeroSection() {
           maxWidth: 900,
         }}
       >
-        이름.
+        안수은.
         <br />
         포트폴리오.
       </Typography>
