@@ -1,96 +1,88 @@
+import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
 
 export default function HeroSection() {
   return (
     <Box
       component="section"
       sx={{
-        backgroundColor: 'var(--color-bg-primary)',
-        borderBottom: '1px solid var(--color-border-light)',
-        py: { xs: 8, md: 12 },
+        backgroundColor: 'var(--color-primary)',
+        px: { xs: 3, sm: 5, md: 8 },
+        pt: { xs: 7, md: 9 },
+        pb: { xs: 6, md: 8 },
       }}
     >
-      <Container maxWidth="md" sx={{ textAlign: 'center' }}>
-        <Typography
-          variant="overline"
-          sx={{ color: 'var(--color-accent)', letterSpacing: 4, fontSize: '0.8rem' }}
-        >
-          Welcome
-        </Typography>
+      {/* 초대형 헤드라인 — 좌측 정렬 */}
+      <Typography
+        variant="h1"
+        sx={{
+          fontWeight: 900,
+          lineHeight: 1.0,
+          letterSpacing: '-2px',
+          color: 'var(--color-secondary)',
+          fontSize: { xs: '3.6rem', sm: '5rem', md: '7rem', lg: '8.5rem' },
+          mb: { xs: 4, md: 6 },
+          maxWidth: 900,
+        }}
+      >
+        이름.
+        <br />
+        포트폴리오.
+      </Typography>
 
-        <Typography
-          variant="h2"
-          sx={{
-            mt: 1,
-            mb: 2,
-            fontSize: { xs: '2rem', md: '3rem' },
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            lineHeight: 1.2,
-          }}
-        >
-          Hero 섹션
-        </Typography>
-
-        <Divider
-          sx={{
-            width: 48,
-            mx: 'auto',
-            my: 3,
-            borderColor: 'var(--color-primary)',
-            borderWidth: 2,
-          }}
-        />
-
+      {/* 하단 행: 소개 텍스트(좌) + pill 버튼(우) */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          flexDirection: { xs: 'column', sm: 'row' },
+          justifyContent: 'space-between',
+          gap: { xs: 3, sm: 0 },
+          maxWidth: 900,
+        }}
+      >
         <Typography
           variant="body1"
           sx={{
-            color: 'var(--color-text-secondary)',
-            fontSize: { xs: '1rem', md: '1.15rem' },
-            maxWidth: 560,
-            mx: 'auto',
-            lineHeight: 1.9,
+            color: 'var(--color-secondary)',
+            fontSize: { xs: '0.95rem', md: '1rem' },
+            lineHeight: 1.75,
+            opacity: 0.8,
+            maxWidth: 280,
           }}
         >
-          여기는 Hero 섹션입니다.
-          <br />
-          메인 비주얼, 이름, 간단 소개가 들어갈 예정입니다.
+          메인 비주얼, 이름,<br />
+          간단 소개가 들어갈 예정입니다.
         </Typography>
 
-        <Box sx={{ mt: 5, display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Button
-            variant="contained"
-            size="large"
-            sx={{
-              backgroundColor: 'var(--color-button-primary)',
-              color: '#fff',
-              px: 4,
-              '&:hover': { backgroundColor: 'var(--color-button-hover)' },
-            }}
-          >
-            프로젝트 보기
-          </Button>
-          <Button
-            variant="outlined"
-            size="large"
-            sx={{
-              borderColor: 'var(--color-primary)',
-              color: 'var(--color-accent)',
-              px: 4,
-              '&:hover': {
-                borderColor: 'var(--color-accent)',
-                backgroundColor: 'var(--color-primary-light)',
-              },
-            }}
-          >
-            연락하기
-          </Button>
-        </Box>
-      </Container>
+        <Button
+          component={Link}
+          to="/projects"
+          variant="outlined"
+          sx={{
+            borderColor: 'var(--color-secondary)',
+            color: 'var(--color-secondary)',
+            borderRadius: '999px',
+            px: { xs: 3.5, md: 4 },
+            py: 1.2,
+            fontSize: '0.9rem',
+            fontWeight: 500,
+            letterSpacing: 0.3,
+            whiteSpace: 'nowrap',
+            flexShrink: 0,
+            '&:hover': {
+              backgroundColor: 'var(--color-secondary)',
+              color: 'var(--color-primary)',
+              borderColor: 'var(--color-secondary)',
+            },
+            transition: 'all 0.2s ease',
+          }}
+        >
+          프로젝트 보기
+        </Button>
+      </Box>
     </Box>
   )
 }
