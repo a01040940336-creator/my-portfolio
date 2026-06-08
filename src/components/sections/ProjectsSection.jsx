@@ -1,265 +1,193 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import Chip from '@mui/material/Chip'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
-const allProjects = [
-  {
-    id: 1,
-    badge: '대표 프로젝트',
-    title: 'Project 01',
-    desc: '프로젝트 한 줄 소개가 들어갈 예정입니다.',
-    tags: ['React', 'MUI'],
-    period: '2024.03',
-  },
-  {
-    id: 2,
-    badge: '추천 프로젝트',
-    title: 'Project 02',
-    desc: '프로젝트 한 줄 소개가 들어갈 예정입니다.',
-    tags: ['Python', 'FastAPI'],
-    period: '2024.06',
-  },
-  {
-    id: 3,
-    badge: null,
-    title: 'Project 03',
-    desc: '프로젝트 한 줄 소개가 들어갈 예정입니다.',
-    tags: ['Node.js', 'MongoDB'],
-    period: '2024.09',
-  },
-  {
-    id: 4,
-    badge: null,
-    title: 'Project 04',
-    desc: '프로젝트 한 줄 소개가 들어갈 예정입니다.',
-    tags: ['React', 'TypeScript'],
-    period: '2024.12',
-  },
+const projects = [
+  { id: 1, title: 'PROJECT 01', height: 200, mt: 40 },
+  { id: 2, title: 'PROJECT 02', height: 300, mt: 0  },
+  { id: 3, title: 'PROJECT 03', height: 260, mt: 20 },
+  { id: 4, title: 'PROJECT 04', height: 200, mt: 50 },
+  { id: 5, title: 'PROJECT 05', height: 280, mt: 10 },
 ]
 
-const PAGE_SIZE = 3
-
 export default function ProjectsSection() {
-  const [page, setPage] = useState(0)
-  const maxPage = Math.ceil(allProjects.length / PAGE_SIZE) - 1
-  const visible = allProjects.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE)
-
   return (
     <Box
       component="section"
       sx={{
-        backgroundColor: 'var(--color-bg-secondary)',
-        py: { xs: 8, md: 10 },
+        backgroundColor: 'var(--color-bg-primary)',
+        pt: { xs: 6, md: 8 },
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="md">
-        {/* 헤더 */}
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Typography
-            variant="h3"
-            sx={{ fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700, mb: 1.5 }}
-          >
-            Projects 섹션
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
-            대표작 썸네일과 설명이 들어갈 예정입니다.
-          </Typography>
-          <Divider sx={{ width: 40, mx: 'auto', mt: 3, borderColor: 'var(--color-primary)', borderWidth: 2 }} />
-        </Box>
-
-        {/* 카드 + 좌우 화살표 */}
-        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
-          {/* 왼쪽 화살표 */}
-          <IconButton
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-            disabled={page === 0}
-            sx={{
-              position: 'absolute',
-              left: { xs: -16, md: -40 },
-              zIndex: 1,
-              color: page === 0 ? 'var(--color-border-mid)' : 'var(--color-text-secondary)',
-              '&:hover': { color: 'var(--color-accent)' },
-            }}
-          >
-            <ChevronLeftIcon fontSize="large" />
-          </IconButton>
-
-          {/* 카드 3개 */}
+      {/* 가로 스크롤 갤러리 */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          gap: { xs: 2, md: 3 },
+          overflowX: 'auto',
+          px: { xs: 3, md: 6 },
+          pb: 3,
+          scrollbarWidth: 'none',
+          '&::-webkit-scrollbar': { display: 'none' },
+          cursor: 'grab',
+          '&:active': { cursor: 'grabbing' },
+        }}
+      >
+        {projects.map((p) => (
           <Box
+            key={p.id}
             sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
-              gap: 0,
-              width: '100%',
-              border: '1px solid var(--color-border-light)',
-              borderRadius: 2,
-              overflow: 'hidden',
-              backgroundColor: 'var(--color-bg-primary)',
+              flexShrink: 0,
+              width: { xs: 180, sm: 220, md: 260 },
+              mb: `${p.mt}px`,
             }}
           >
-            {visible.map((project, idx) => (
+            {/* 썸네일 */}
+            <Box
+              component={Link}
+              to="/projects"
+              sx={{
+                display: 'block',
+                height: p.height,
+                backgroundColor: 'var(--color-bg-tertiary)',
+                overflow: 'hidden',
+                position: 'relative',
+                textDecoration: 'none',
+                '&:hover .overlay': { opacity: 1 },
+                '&:hover img': { transform: 'scale(1.04)' },
+              }}
+            >
+              {/* 플레이스홀더 — 실제 이미지로 교체 시 <img> 사용 */}
               <Box
-                key={project.id}
                 sx={{
-                  borderRight: idx < visible.length - 1
-                    ? '1px solid var(--color-border-light)'
-                    : 'none',
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'var(--color-bg-tertiary)',
+                  backgroundImage:
+                    'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 12px)',
+                  transition: 'transform 0.4s ease',
                   display: 'flex',
-                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                {/* 썸네일 */}
-                <Box sx={{ position: 'relative' }}>
-                  <Box
-                    sx={{
-                      height: 240,
-                      backgroundColor: 'var(--color-bg-tertiary)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
-                      Thumbnail {project.id}
-                    </Typography>
-                  </Box>
-                  {/* 배지 */}
-                  {project.badge && (
-                    <Typography
-                      variant="caption"
-                      sx={{
-                        position: 'absolute',
-                        top: 12,
-                        left: 14,
-                        color: 'var(--color-accent)',
-                        fontWeight: 500,
-                        fontSize: '0.72rem',
-                        letterSpacing: 0.3,
-                        backgroundColor: 'rgba(255,255,255,0.85)',
-                        px: 1,
-                        py: 0.3,
-                        borderRadius: 0.5,
-                      }}
-                    >
-                      {project.badge}
-                    </Typography>
-                  )}
-                </Box>
-
-                {/* 카드 내용 */}
-                <Box
-                  sx={{
-                    flex: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    px: 3,
-                    pt: 2.5,
-                    pb: 2,
-                    borderTop: '1px solid var(--color-border-light)',
-                  }}
-                >
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ fontWeight: 700, color: 'var(--color-text-primary)', mb: 0.5 }}
-                  >
-                    {project.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: 'var(--color-text-muted)', mb: 2, lineHeight: 1.7 }}
-                  >
-                    {project.desc}
-                  </Typography>
-
-                  {/* 태그 */}
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2 }}>
-                    {project.tags.map((tag) => (
-                      <Chip
-                        key={tag}
-                        label={tag}
-                        size="small"
-                        sx={{
-                          backgroundColor: 'var(--color-primary-light)',
-                          color: 'var(--color-primary-dark)',
-                          border: '1px solid var(--color-primary)',
-                          fontSize: '0.72rem',
-                          height: 22,
-                        }}
-                      />
-                    ))}
-                  </Box>
-
-                  {/* 기간 */}
-                  <Typography variant="caption" sx={{ color: 'var(--color-text-muted)', mb: 2 }}>
-                    {project.period}
-                  </Typography>
-
-                  {/* CTA 버튼 */}
-                  <Button
-                    component={Link}
-                    to="/projects"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      mt: 'auto',
-                      backgroundColor: 'var(--color-button-primary)',
-                      color: '#fff',
-                      borderRadius: 0.5,
-                      py: 1.2,
-                      fontSize: '0.82rem',
-                      letterSpacing: 0.5,
-                      '&:hover': { backgroundColor: 'var(--color-button-hover)' },
-                    }}
-                  >
-                    프로젝트 보기
-                  </Button>
-                </Box>
+                <Typography variant="caption" sx={{ color: 'var(--color-text-muted)', letterSpacing: 1 }}>
+                  Image
+                </Typography>
               </Box>
-            ))}
-          </Box>
 
-          {/* 오른쪽 화살표 */}
-          <IconButton
-            onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
-            disabled={page === maxPage}
+              {/* 호버 오버레이 */}
+              <Box
+                className="overlay"
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundColor: 'rgba(26,26,26,0.18)',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                }}
+              />
+            </Box>
+
+            {/* 프로젝트 이름 */}
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'block',
+                mt: 1.2,
+                color: 'var(--color-text-primary)',
+                fontWeight: 500,
+                letterSpacing: 1.5,
+                fontSize: '0.7rem',
+              }}
+            >
+              {p.title}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+
+      {/* 하단 바 */}
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'space-between',
+          px: { xs: 3, md: 6 },
+          pt: 1,
+          pb: { xs: 4, md: 5 },
+          borderTop: '1px solid var(--color-border-light)',
+          mt: 1,
+          flexWrap: 'wrap',
+          gap: 2,
+        }}
+      >
+        {/* 좌측 — 초대형 WORKS */}
+        <Typography
+          variant="h1"
+          sx={{
+            fontWeight: 900,
+            fontSize: { xs: '3.5rem', sm: '5rem', md: '7rem' },
+            lineHeight: 1,
+            letterSpacing: '-2px',
+            color: 'var(--color-text-primary)',
+            mt: { xs: 1, md: 2 },
+          }}
+        >
+          WORKS
+        </Typography>
+
+        {/* 우측 — 링크들 */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-end',
+            gap: 0.8,
+            pb: 1,
+          }}
+        >
+          <Typography
+            component={Link}
+            to="/projects"
+            variant="caption"
             sx={{
-              position: 'absolute',
-              right: { xs: -16, md: -40 },
-              zIndex: 1,
-              color: page === maxPage ? 'var(--color-border-mid)' : 'var(--color-text-secondary)',
+              color: 'var(--color-text-secondary)',
+              letterSpacing: 1.5,
+              fontSize: '0.72rem',
+              fontWeight: 500,
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
               '&:hover': { color: 'var(--color-accent)' },
+              transition: 'color 0.2s',
             }}
           >
-            <ChevronRightIcon fontSize="large" />
-          </IconButton>
+            VIEW ALL ↗
+          </Typography>
+          <Typography
+            component={Link}
+            to="/projects"
+            variant="caption"
+            sx={{
+              color: 'var(--color-text-muted)',
+              letterSpacing: 1.5,
+              fontSize: '0.72rem',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              '&:hover': { color: 'var(--color-accent)' },
+              transition: 'color 0.2s',
+            }}
+          >
+            ARCHIVE ↗
+          </Typography>
         </Box>
-
-        {/* 페이지 인디케이터 */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 3 }}>
-          {Array.from({ length: maxPage + 1 }).map((_, i) => (
-            <Box
-              key={i}
-              onClick={() => setPage(i)}
-              sx={{
-                width: i === page ? 20 : 6,
-                height: 6,
-                borderRadius: 3,
-                backgroundColor: i === page ? 'var(--color-accent)' : 'var(--color-border-mid)',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-            />
-          ))}
-        </Box>
-      </Container>
+      </Box>
     </Box>
   )
 }
