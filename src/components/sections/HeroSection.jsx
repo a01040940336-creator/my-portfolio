@@ -22,14 +22,14 @@ export default function HeroSection() {
           lineHeight: 1.0,
           letterSpacing: '-2px',
           color: 'var(--color-secondary)',
-          fontSize: { xs: '3.6rem', sm: '5rem', md: '7rem', lg: '8.5rem' },
+          fontSize: { xs: '2.4rem', sm: '3.2rem', md: '4.2rem', lg: '5rem' },
           mb: { xs: 4, md: 6 },
           maxWidth: 900,
         }}
       >
-        안수은.
+        Sueun An.
         <br />
-        포트폴리오.
+        Portfolio.
       </Typography>
 
       {/* 하단 행: 소개 텍스트(좌) + pill 버튼(우) */}
@@ -53,8 +53,8 @@ export default function HeroSection() {
             maxWidth: 280,
           }}
         >
-          메인 비주얼, 이름,<br />
-          간단 소개가 들어갈 예정입니다.
+          Developer + Designer<br />
+          Based in Korea.
         </Typography>
 
         <Button
@@ -80,7 +80,7 @@ export default function HeroSection() {
             transition: 'all 0.2s ease',
           }}
         >
-          프로젝트 보기
+          View Projects
         </Button>
       </Box>
     </Box>
