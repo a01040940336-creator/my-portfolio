@@ -40,7 +40,6 @@ export default function HeroSection() {
           flexDirection: { xs: 'column', sm: 'row' },
           justifyContent: { xs: 'center', sm: 'space-between' },
           gap: { xs: 3, sm: 0 },
-          maxWidth: 900,
           textAlign: { xs: 'center', sm: 'left' },
         }}
       >
@@ -54,7 +53,7 @@ export default function HeroSection() {
             maxWidth: 280,
           }}
         >
-          Developer + Designer<br />
+          UI/UX Web Designer<br />
           Based in Korea.
         </Typography>
 
@@ -73,7 +72,6 @@ export default function HeroSection() {
             letterSpacing: 0.3,
             whiteSpace: 'nowrap',
             flexShrink: 0,
-            alignSelf: { xs: 'center', sm: 'auto' },
             '&:hover': {
               backgroundColor: 'var(--color-secondary)',
               color: 'var(--color-primary)',

@@ -51,50 +51,55 @@ export default function SkillTreeSection() {
           </Typography>
         </Box>
 
-        <Grid container spacing={3} sx={{ mb: 5 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
+            gap: 3,
+            mb: 5,
+          }}
+        >
           {skillGroups.map((group) => (
-            <Grid item xs={12} sm={4} key={group.category}>
-              <Box
+            <Box
+              key={group.category}
+              sx={{
+                p: 3,
+                backgroundColor: 'var(--color-bg-tertiary)',
+                border: '1px solid var(--color-border-light)',
+                borderRadius: 2,
+              }}
+            >
+              <Typography
+                variant="subtitle2"
                 sx={{
-                  p: 3,
-                  backgroundColor: 'var(--color-bg-tertiary)',
-                  border: '1px solid var(--color-border-light)',
-                  borderRadius: 2,
-                  height: '100%',
+                  color: 'var(--color-accent)',
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                  mb: 2,
+                  textTransform: 'uppercase',
+                  fontSize: '0.75rem',
                 }}
               >
-                <Typography
-                  variant="subtitle2"
-                  sx={{
-                    color: 'var(--color-accent)',
-                    fontWeight: 600,
-                    letterSpacing: 1,
-                    mb: 2,
-                    textTransform: 'uppercase',
-                    fontSize: '0.75rem',
-                  }}
-                >
-                  {group.category}
-                </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                  {group.skills.map((skill) => (
-                    <Chip
-                      key={skill}
-                      label={skill}
-                      size="small"
-                      sx={{
-                        backgroundColor: 'var(--color-primary-light)',
-                        color: 'var(--color-primary-dark)',
-                        border: '1px solid var(--color-primary)',
-                        fontSize: '0.78rem',
-                      }}
-                    />
-                  ))}
-                </Box>
+                {group.category}
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {group.skills.map((skill) => (
+                  <Chip
+                    key={skill}
+                    label={skill}
+                    size="small"
+                    sx={{
+                      backgroundColor: 'var(--color-primary-light)',
+                      color: 'var(--color-primary-dark)',
+                      border: '1px solid var(--color-primary)',
+                      fontSize: '0.78rem',
+                    }}
+                  />
+                ))}
               </Box>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
 
         <Box sx={{ maxWidth: 480, mx: 'auto' }}>
           <Typography

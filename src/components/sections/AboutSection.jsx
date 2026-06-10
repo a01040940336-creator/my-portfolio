@@ -28,7 +28,7 @@ export default function AboutSection() {
             variant="h3"
             sx={{ mt: 1, fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 600 }}
           >
-            About Me 섹션
+            About Me
           </Typography>
           <Divider
             sx={{ width: 40, mx: 'auto', mt: 2, borderColor: 'var(--color-primary)', borderWidth: 2 }}
@@ -45,11 +45,17 @@ export default function AboutSection() {
           <CardContent sx={{ p: { xs: 3, md: 5 }, textAlign: 'center' }}>
             <Typography
               variant="body1"
-              sx={{ color: 'var(--color-text-secondary)', lineHeight: 2, mb: 4 }}
+              sx={{ color: 'var(--color-text-secondary)', lineHeight: 2.2, mb: 1.5, fontSize: { xs: '0.95rem', md: '1rem' } }}
             >
-              여기는 About Me 섹션입니다.
+              사용자의 시선으로 생각하고, 디자인으로 이야기하는 UI/UX 웹 디자이너입니다.
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{ color: 'var(--color-text-muted)', lineHeight: 2, mb: 4, fontSize: { xs: '0.9rem', md: '0.95rem' } }}
+            >
+              단순히 보기 좋은 화면이 아닌, 누구나 직관적으로 쓸 수 있는 경험을 만드는 것에 집중합니다.
               <br />
-              간단한 자기소개와 &apos;더 알아보기&apos; 버튼이 들어갈 예정입니다.
+              Figma부터 실제 구현까지, 아이디어가 화면이 되는 과정을 즐깁니다.
             </Typography>
 
             <Button
