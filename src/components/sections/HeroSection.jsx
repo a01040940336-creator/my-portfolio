@@ -36,12 +36,10 @@ export default function HeroSection() {
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center',
           flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: { xs: 'flex-start', sm: 'space-between' },
           alignItems: { xs: 'flex-start', sm: 'center' },
+          justifyContent: { xs: 'flex-start', sm: 'space-between' },
           gap: { xs: 3, sm: 0 },
-          textAlign: 'left',
         }}
       >
         <Typography
@@ -73,6 +71,7 @@ export default function HeroSection() {
             letterSpacing: 0.3,
             whiteSpace: 'nowrap',
             flexShrink: 0,
+            alignSelf: { xs: 'center', sm: 'auto' },
             '&:hover': {
               backgroundColor: 'var(--color-secondary)',
               color: 'var(--color-primary)',
