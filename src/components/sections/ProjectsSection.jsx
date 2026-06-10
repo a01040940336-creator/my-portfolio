@@ -126,6 +126,52 @@ export default function ProjectsSection() {
             position: 'relative',
           }}
         >
+          {/* VIEW ALL / ARCHIVE — 우측 하단 고정 */}
+          <Box
+            sx={{
+              position: 'absolute',
+              bottom: { xs: 20, md: 28 },
+              right: { xs: 16, md: 32 },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: 0.8,
+            }}
+          >
+            <Typography
+              component={Link}
+              to="/projects"
+              variant="caption"
+              sx={{
+                color: 'var(--color-text-secondary)',
+                letterSpacing: '0.18em',
+                fontSize: '0.68rem',
+                fontWeight: 500,
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                '&:hover': { color: 'var(--color-accent)' },
+                transition: 'color 0.2s',
+              }}
+            >
+              VIEW ALL ↗
+            </Typography>
+            <Typography
+              component={Link}
+              to="/projects"
+              variant="caption"
+              sx={{
+                color: 'var(--color-text-muted)',
+                letterSpacing: '0.18em',
+                fontSize: '0.68rem',
+                textDecoration: 'none',
+                whiteSpace: 'nowrap',
+                '&:hover': { color: 'var(--color-accent)' },
+                transition: 'color 0.2s',
+              }}
+            >
+              ARCHIVE ↗
+            </Typography>
+          </Box>
           {/* 기본 상태 — 우측 WORKS 텍스트 */}
           <Box
             sx={{
@@ -297,52 +343,6 @@ export default function ProjectsSection() {
             </Box>
           ))}
 
-          {/* 우측 VIEW ALL */}
-          <Box
-            sx={{
-              flexShrink: 0,
-              ml: { xs: 2, md: 4 },
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              pb: 0.5,
-              gap: 0.8,
-            }}
-          >
-            <Typography
-              component={Link}
-              to="/projects"
-              variant="caption"
-              sx={{
-                color: 'var(--color-text-secondary)',
-                letterSpacing: '0.18em',
-                fontSize: '0.68rem',
-                fontWeight: 500,
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-                '&:hover': { color: 'var(--color-accent)' },
-                transition: 'color 0.2s',
-              }}
-            >
-              VIEW ALL ↗
-            </Typography>
-            <Typography
-              component={Link}
-              to="/projects"
-              variant="caption"
-              sx={{
-                color: 'var(--color-text-muted)',
-                letterSpacing: '0.18em',
-                fontSize: '0.68rem',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-                '&:hover': { color: 'var(--color-accent)' },
-                transition: 'color 0.2s',
-              }}
-            >
-              ARCHIVE ↗
-            </Typography>
-          </Box>
         </Box>
       </Box>
     </Box>
