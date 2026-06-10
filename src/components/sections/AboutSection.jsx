@@ -42,7 +42,7 @@ export default function AboutSection() {
             boxShadow: 'none',
           }}
         >
-          <CardContent sx={{ p: { xs: 3, md: 5 }, textAlign: 'left' }}>
+          <CardContent sx={{ p: { xs: 3, md: 5 }, textAlign: 'center' }}>
             <Typography
               variant="body1"
               sx={{ color: 'var(--color-text-secondary)', lineHeight: 2.2, mb: 1.5, fontSize: { xs: '0.95rem', md: '1rem' } }}
@@ -58,7 +58,7 @@ export default function AboutSection() {
               Figma부터 실제 구현까지, 아이디어가 화면이 되는 과정을 즐깁니다.
             </Typography>
 
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Button
                 variant="outlined"
                 component={Link}
