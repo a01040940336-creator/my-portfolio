@@ -50,17 +50,19 @@ export default function ProjectsSection() {
       component="section"
       sx={{
         backgroundColor: 'var(--color-bg-primary)',
-        minHeight: '100vh',
+        height: { xs: 'auto', md: '100vh' },
+        minHeight: { xs: '80vh', md: 'unset' },
         display: 'flex',
         flexDirection: 'column',
+        overflow: 'hidden',
       }}
     >
       {/* ── 상단 프리뷰 영역 ── */}
       <Box
         sx={{
           flex: 1,
+          minHeight: 0,
           display: 'flex',
-          minHeight: { xs: 320, md: 0 },
           overflow: 'hidden',
           position: 'relative',
         }}
