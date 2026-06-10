@@ -17,7 +17,7 @@ export default function ProjectsSection() {
       sx={{
         backgroundColor: 'var(--color-bg-primary)',
         pt: { xs: 6, md: 8 },
-        overflow: 'hidden',
+        overflowX: 'hidden',
       }}
     >
       {/* 가로 스크롤 갤러리 */}
@@ -27,12 +27,14 @@ export default function ProjectsSection() {
           alignItems: 'flex-end',
           gap: { xs: 2, md: 3 },
           overflowX: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          touchAction: 'pan-x',
           px: { xs: 3, md: 6 },
           pb: 3,
           scrollbarWidth: 'none',
           '&::-webkit-scrollbar': { display: 'none' },
-          cursor: 'grab',
-          '&:active': { cursor: 'grabbing' },
+          cursor: { xs: 'default', md: 'grab' },
+          '&:active': { cursor: { md: 'grabbing' } },
         }}
       >
         {projects.map((p) => (
@@ -40,7 +42,7 @@ export default function ProjectsSection() {
             key={p.id}
             sx={{
               flexShrink: 0,
-              width: { xs: 180, sm: 220, md: 260 },
+              width: { xs: 220, sm: 240, md: 260 },
               mb: `${p.mt}px`,
             }}
           >
