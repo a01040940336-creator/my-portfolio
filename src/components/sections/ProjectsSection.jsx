@@ -294,9 +294,15 @@ export default function ProjectsSection() {
             touchAction: 'pan-x',
             px: { xs: 3, md: 6 },
             pt: 3,
-            pb: 4,
-            scrollbarWidth: 'none',
-            '&::-webkit-scrollbar': { display: 'none' },
+            pb: { xs: 1.5, md: 4 },
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'var(--color-border-mid) transparent',
+            '&::-webkit-scrollbar': { height: '3px' },
+            '&::-webkit-scrollbar-track': { background: 'transparent' },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: 'var(--color-border-mid)',
+              borderRadius: '2px',
+            },
           }}
         >
           {projects.map((p) => (
