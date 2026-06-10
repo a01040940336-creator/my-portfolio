@@ -53,7 +53,13 @@ export default function Navbar() {
   return (
     <>
       <AppBar position="sticky" elevation={0}>
-        <Toolbar sx={{ maxWidth: 1200, width: '100%', mx: 'auto', px: { xs: 2, md: 4 } }}>
+        <Toolbar
+          disableGutters
+          sx={{
+            px: { xs: 3, sm: 5, md: 8 },
+            minHeight: { xs: '48px !important', md: '52px !important' },
+          }}
+        >
           {/* 로고 — 홈이면 스크롤 탑, 다른 페이지면 홈으로 이동 */}
           <Typography
             variant="h6"
