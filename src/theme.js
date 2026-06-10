@@ -39,7 +39,7 @@ const theme = createTheme({
     divider: palette.borderLight,
   },
   typography: {
-    fontFamily: "'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    fontFamily: "'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
     h1: { color: palette.textPrimary, fontWeight: 700 },
     h2: { color: palette.textPrimary, fontWeight: 600 },
     h3: { color: palette.textPrimary, fontWeight: 600 },

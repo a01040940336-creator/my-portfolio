@@ -36,11 +36,12 @@ export default function HeroSection() {
       <Box
         sx={{
           display: 'flex',
-          alignItems: { xs: 'flex-start', sm: 'center' },
+          alignItems: 'center',
           flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: 'space-between',
+          justifyContent: { xs: 'center', sm: 'space-between' },
           gap: { xs: 3, sm: 0 },
           maxWidth: 900,
+          textAlign: { xs: 'center', sm: 'left' },
         }}
       >
         <Typography
@@ -65,13 +66,14 @@ export default function HeroSection() {
             borderColor: 'var(--color-secondary)',
             color: 'var(--color-secondary)',
             borderRadius: '999px',
-            px: { xs: 3.5, md: 4 },
+            px: { xs: 4, md: 4 },
             py: 1.2,
             fontSize: '0.9rem',
             fontWeight: 500,
             letterSpacing: 0.3,
             whiteSpace: 'nowrap',
             flexShrink: 0,
+            alignSelf: { xs: 'center', sm: 'auto' },
             '&:hover': {
               backgroundColor: 'var(--color-secondary)',
               color: 'var(--color-primary)',

@@ -9,7 +9,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 const skillGroups = [
   { category: 'Frontend', skills: ['React', 'JavaScript', 'HTML/CSS', 'MUI'] },
   { category: 'Backend',  skills: ['Node.js', 'Python', 'REST API'] },
-  { category: 'Tools',    skills: ['Git', 'Figma', 'Vite'] },
+  { category: 'Tools',    skills: ['Git', 'Figma', 'Photoshop', 'Illustrator', 'MS Office', 'Vite'] },
 ]
 
 const progressSkills = [
