@@ -38,9 +38,10 @@ export default function HeroSection() {
           display: 'flex',
           alignItems: 'center',
           flexDirection: { xs: 'column', sm: 'row' },
-          justifyContent: { xs: 'center', sm: 'space-between' },
+          justifyContent: { xs: 'flex-start', sm: 'space-between' },
+          alignItems: { xs: 'flex-start', sm: 'center' },
           gap: { xs: 3, sm: 0 },
-          textAlign: { xs: 'center', sm: 'left' },
+          textAlign: 'left',
         }}
       >
         <Typography
