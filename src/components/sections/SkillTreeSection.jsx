@@ -2,15 +2,17 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 
-const mainSkills = [
-  { name: 'Figma',        tag: 'Design Tool',  desc: 'UI 디자인 · 프로토타이핑' },
-  { name: 'Photoshop',    tag: 'Design Tool',  desc: '이미지 편집 · 그래픽' },
-  { name: 'Illustrator',  tag: 'Design Tool',  desc: '벡터 그래픽 · 브랜딩' },
-  { name: 'HTML5',        tag: 'Markup',       desc: '시맨틱 마크업' },
-  { name: 'CSS3',         tag: 'Styling',      desc: '레이아웃 · 반응형' },
+const tools = [
+  { name: 'Figma',       abbr: 'Fg', bg: '#1E1E1E', color: '#A259FF' },
+  { name: 'Photoshop',   abbr: 'Ps', bg: '#001E36', color: '#31A8FF' },
+  { name: 'Illustrator', abbr: 'Ai', bg: '#2E0000', color: '#FF9A00' },
+  { name: 'HTML5',       abbr: 'H5', bg: '#E34F26', color: '#FFFFFF' },
+  { name: 'CSS3',        abbr: 'CS', bg: '#1572B6', color: '#FFFFFF' },
 ]
 
-const subSkills = ['JavaScript', 'React', 'GitHub', 'Supabase']
+const devSkills = ['JavaScript', 'React', 'GitHub', 'Supabase']
+
+const interests = ['패션 & 라이프스타일', '브랜드 경험', '트렌드 분석', 'UI 디자인', '사용자 리서치']
 
 export default function SkillTreeSection() {
   return (
@@ -18,175 +20,168 @@ export default function SkillTreeSection() {
       component="section"
       sx={{
         backgroundColor: 'var(--color-bg-primary)',
-        py: { xs: 10, md: 14 },
+        py: { xs: 8, md: 10 },
         borderTop: '1px solid var(--color-border-light)',
         borderBottom: '1px solid var(--color-border-light)',
       }}
     >
       <Container maxWidth="md">
-
-        {/* 섹션 레이블 */}
-        <Typography
-          sx={{
-            fontSize: '0.65rem',
-            letterSpacing: '0.45em',
-            color: 'var(--color-accent)',
-            textTransform: 'uppercase',
-            mb: 2,
-          }}
-        >
-          Skills
-        </Typography>
-
         <Box
           sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', md: 'row' },
-            alignItems: { xs: 'flex-start', md: 'flex-end' },
-            justifyContent: 'space-between',
-            gap: 2,
-            mb: { xs: 7, md: 10 },
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+            gap: { xs: 6, md: 8 },
           }}
         >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: '1.8rem', md: '2.6rem' },
-              fontWeight: 700,
-              letterSpacing: '-0.5px',
-              color: 'var(--color-text-primary)',
-              lineHeight: 1.2,
-            }}
-          >
-            Skill Set
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: '0.82rem',
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.7,
-              maxWidth: 280,
-              wordBreak: 'keep-all',
-            }}
-          >
-            디자인 툴부터 실제 구현까지,<br />아이디어를 화면으로 만듭니다.
-          </Typography>
-        </Box>
-
-        {/* 주력 기술 목록 */}
-        <Box sx={{ mb: { xs: 6, md: 8 } }}>
-          <Typography
-            sx={{
-              fontSize: '0.6rem',
-              letterSpacing: '0.4em',
-              color: 'var(--color-text-muted)',
-              textTransform: 'uppercase',
-              mb: 3,
-            }}
-          >
-            주력 기술
-          </Typography>
-
-          {mainSkills.map((skill, i) => (
-            <Box
-              key={skill.name}
+          {/* ── 좌측: 주력 툴 ── */}
+          <Box>
+            <Typography
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                py: { xs: 2.5, md: 3 },
-                borderTop: '1px solid var(--color-border-light)',
-                ...(i === mainSkills.length - 1 && {
-                  borderBottom: '1px solid var(--color-border-light)',
-                }),
-                gap: 2,
-                '&:hover': {
-                  '& .skill-name': { color: 'var(--color-accent)' },
-                },
-                transition: 'all 0.2s ease',
-                cursor: 'default',
+                fontSize: '1.3rem',
+                fontWeight: 700,
+                color: 'var(--color-text-primary)',
+                mb: 3,
+                letterSpacing: '-0.3px',
               }}
             >
-              <Typography
-                className="skill-name"
-                sx={{
-                  fontSize: { xs: '1.1rem', md: '1.3rem' },
-                  fontWeight: 600,
-                  color: 'var(--color-text-primary)',
-                  letterSpacing: '-0.3px',
-                  transition: 'color 0.2s ease',
-                  minWidth: 120,
-                }}
-              >
-                {skill.name}
-              </Typography>
+              Softwares
+            </Typography>
 
-              <Typography
-                sx={{
-                  fontSize: '0.7rem',
-                  color: 'var(--color-accent)',
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  display: { xs: 'none', sm: 'block' },
-                  flexShrink: 0,
-                }}
-              >
-                {skill.tag}
-              </Typography>
-
-              <Typography
-                sx={{
-                  fontSize: '0.82rem',
-                  color: 'var(--color-text-muted)',
-                  textAlign: 'right',
-                  flexShrink: 0,
-                }}
-              >
-                {skill.desc}
-              </Typography>
+            {/* 아이콘 그리드 */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, mb: 4 }}>
+              {tools.map((tool) => (
+                <Box
+                  key={tool.name}
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    backgroundColor: tool.bg,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '14px',
+                    gap: 0.3,
+                    flexShrink: 0,
+                    cursor: 'default',
+                    transition: 'transform 0.2s ease',
+                    '&:hover': { transform: 'scale(1.08)' },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: '1rem',
+                      fontWeight: 800,
+                      color: tool.color,
+                      lineHeight: 1,
+                      fontStyle: 'italic',
+                      letterSpacing: '-0.5px',
+                    }}
+                  >
+                    {tool.abbr}
+                  </Typography>
+                </Box>
+              ))}
             </Box>
-          ))}
-        </Box>
 
-        {/* 보유 기술 */}
-        <Box>
-          <Typography
-            sx={{
-              fontSize: '0.6rem',
-              letterSpacing: '0.4em',
-              color: 'var(--color-text-muted)',
-              textTransform: 'uppercase',
-              mb: 3,
-            }}
-          >
-            보유 기술 (학습 중)
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-            {subSkills.map((skill) => (
-              <Box
-                key={skill}
+            {/* 툴 이름 레이블 */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+              {tools.map((tool) => (
+                <Typography
+                  key={tool.name}
+                  sx={{
+                    fontSize: '0.72rem',
+                    color: 'var(--color-text-muted)',
+                    letterSpacing: '0.05em',
+                  }}
+                >
+                  {tool.name}{' '}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+
+          {/* ── 우측: 개발 스킬 + 관심사 ── */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+
+            {/* 개발 스킬 */}
+            <Box>
+              <Typography
                 sx={{
-                  px: 2.5,
-                  py: 1,
-                  border: '1px solid var(--color-border-mid)',
-                  color: 'var(--color-text-secondary)',
-                  fontSize: '0.82rem',
-                  letterSpacing: '0.05em',
-                  fontWeight: 500,
-                  '&:hover': {
-                    borderColor: 'var(--color-accent)',
-                    color: 'var(--color-accent)',
-                  },
-                  transition: 'border-color 0.2s, color 0.2s',
-                  cursor: 'default',
+                  fontSize: '1.3rem',
+                  fontWeight: 700,
+                  color: 'var(--color-text-primary)',
+                  mb: 3,
+                  letterSpacing: '-0.3px',
                 }}
               >
-                {skill}
+                Development
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.2 }}>
+                {devSkills.map((skill) => (
+                  <Box
+                    key={skill}
+                    sx={{
+                      px: 2.2,
+                      py: 0.8,
+                      border: '1.5px solid var(--color-border-mid)',
+                      borderRadius: '999px',
+                      fontSize: '0.82rem',
+                      color: 'var(--color-text-secondary)',
+                      fontWeight: 500,
+                      letterSpacing: '0.02em',
+                      cursor: 'default',
+                      transition: 'border-color 0.2s, color 0.2s',
+                      '&:hover': {
+                        borderColor: 'var(--color-accent)',
+                        color: 'var(--color-accent)',
+                      },
+                    }}
+                  >
+                    {skill}
+                  </Box>
+                ))}
               </Box>
-            ))}
+            </Box>
+
+            {/* 관심 분야 */}
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: '1.3rem',
+                  fontWeight: 700,
+                  color: 'var(--color-text-primary)',
+                  mb: 3,
+                  letterSpacing: '-0.3px',
+                }}
+              >
+                Interests
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.2 }}>
+                {interests.map((item) => (
+                  <Box
+                    key={item}
+                    sx={{
+                      px: 2.2,
+                      py: 0.8,
+                      border: '1.5px solid var(--color-primary-light, #E5B0BC)',
+                      borderRadius: '999px',
+                      fontSize: '0.82rem',
+                      color: 'var(--color-accent)',
+                      fontWeight: 500,
+                      cursor: 'default',
+                      backgroundColor: 'var(--color-primary-light)',
+                      opacity: 0.85,
+                    }}
+                  >
+                    {item}
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+
           </Box>
         </Box>
-
       </Container>
     </Box>
   )
