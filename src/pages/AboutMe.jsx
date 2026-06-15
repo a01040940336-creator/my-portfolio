@@ -87,50 +87,221 @@ function SkillBar({ skill }) {
 
 export default function AboutMe() {
   return (
-    <Box sx={{
-      backgroundColor: 'var(--color-bg-secondary)',
-      minHeight: 'calc(100vh - 64px)',
-    }}>
+    <Box sx={{ backgroundColor: 'var(--color-bg-secondary)', minHeight: 'calc(100vh - 64px)' }}>
 
-      {/* ── 헤더 배너 ── */}
+      {/* ══════════════════════════════════════
+          VINTAGE EDITORIAL HERO
+      ══════════════════════════════════════ */}
       <Box sx={{
-        backgroundColor: 'var(--color-primary)',
-        px: { xs: 3, sm: 5, md: 8 },
-        pt: { xs: 8, md: 11 },
-        pb: { xs: 7, md: 10 },
+        position: 'relative',
+        backgroundColor: '#f6f4f1',
+        minHeight: { xs: '88vh', md: '94vh' },
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
       }}>
-        <Typography sx={{
-          fontSize: '0.65rem', letterSpacing: '0.45em',
-          color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', mb: 2,
-        }}>
-          About Me
-        </Typography>
-        <Typography variant="h1" sx={{
-          fontSize: { xs: '2.4rem', md: '3.6rem' },
-          fontWeight: 800, letterSpacing: '-1.5px',
-          color: '#fff', lineHeight: 1.1, mb: 3,
-        }}>
-          안수은입니다.
-        </Typography>
 
-        {/* 기본 정보 칩 */}
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-          {[
-            aboutData.basicInfo.role,
-            aboutData.basicInfo.education,
-            aboutData.basicInfo.major,
-          ].map((item) => (
-            <Box key={item} sx={{
-              px: 2, py: 0.7,
-              border: '1px solid rgba(255,255,255,0.4)',
-              borderRadius: '999px',
-              fontSize: '0.78rem',
-              color: 'rgba(255,255,255,0.85)',
-              letterSpacing: '0.03em',
+        {/* ── 그레인 텍스처 오버레이 ── */}
+        <Box sx={{
+          position: 'absolute', inset: 0, zIndex: 1,
+          backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.09'/></svg>")`,
+          backgroundRepeat: 'repeat',
+          pointerEvents: 'none',
+          mixBlendMode: 'multiply',
+        }} />
+
+        {/* ── 흩어진 워터마크 텍스트 ── */}
+        {[
+          { top: '7%',  left: '2%',   rotate: -2   },
+          { top: '24%', right: '6%',  rotate: 1.5  },
+          { top: '46%', left: '1%',   rotate: -1   },
+          { top: '63%', right: '2%',  rotate: 2    },
+          { top: '80%', left: '18%',  rotate: -1.5 },
+        ].map((pos, i) => (
+          <Typography key={i} sx={{
+            position: 'absolute', zIndex: 0,
+            top: pos.top, left: pos.left, right: pos.right,
+            transform: `rotate(${pos.rotate}deg)`,
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '0.55rem', letterSpacing: '0.38em',
+            color: '#b89d8d', opacity: 0.28,
+            textTransform: 'uppercase', whiteSpace: 'nowrap',
+            userSelect: 'none',
+          }}>
+            안수은 · UI/UX Designer · Portfolio 2025
+          </Typography>
+        ))}
+
+        {/* ── 상단 바 ── */}
+        <Box sx={{
+          position: 'relative', zIndex: 2,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          px: { xs: 3, md: 7 }, pt: { xs: 3, md: 5 },
+        }}>
+          <Typography sx={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '0.58rem', letterSpacing: '0.3em',
+            color: '#1a1a1a', opacity: 0.5,
+            textTransform: 'uppercase', fontStyle: 'italic',
+          }}>
+            — About Me · Portfolio
+          </Typography>
+          <Typography sx={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '0.58rem', letterSpacing: '0.3em',
+            color: '#1a1a1a', opacity: 0.5, textTransform: 'uppercase',
+          }}>
+            Based in Korea · 2025
+          </Typography>
+        </Box>
+
+        {/* ── 폴라로이드 (우측 상단) ── */}
+        <Box sx={{
+          position: 'absolute',
+          top: { xs: '9%', md: '13%' },
+          right: { xs: '-3%', md: '3.5%' },
+          width: { xs: 105, md: 160 },
+          zIndex: 3,
+          transform: 'rotate(5.5deg)',
+          filter: 'drop-shadow(3px 6px 16px rgba(0,0,0,0.13))',
+        }}>
+          <Box sx={{ backgroundColor: '#ede9e1', p: '8px', pb: '28px' }}>
+            <Box sx={{
+              width: '100%', paddingTop: '118%',
+              position: 'relative', overflow: 'hidden',
+              backgroundColor: '#ccc4b8',
+              filter: 'sepia(25%) saturate(75%) brightness(0.92)',
             }}>
-              {item}
+              {/* 그레인 */}
+              <Box sx={{
+                position: 'absolute', inset: 0,
+                backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.2'/></svg>")`,
+                backgroundRepeat: 'repeat', mixBlendMode: 'multiply',
+              }} />
+              {/* 비네팅 */}
+              <Box sx={{
+                position: 'absolute', inset: 0,
+                background: 'radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.28) 100%)',
+              }} />
+              <Typography sx={{
+                position: 'absolute', bottom: 8, left: 0, right: 0, textAlign: 'center',
+                fontFamily: '"Playfair Display", serif',
+                fontSize: '0.42rem', letterSpacing: '0.18em',
+                color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase',
+              }}>
+                photo
+              </Typography>
             </Box>
-          ))}
+          </Box>
+          <Typography sx={{
+            fontFamily: '"Playfair Display", serif',
+            fontSize: '0.48rem', letterSpacing: '0.1em',
+            color: '#9a8a7a', textAlign: 'center',
+            mt: 0.5, fontStyle: 'italic',
+          }}>
+            Sueun, '25
+          </Typography>
+        </Box>
+
+        {/* ── 초대형 스크립트 타이틀 ── */}
+        <Box sx={{
+          position: 'relative', zIndex: 2,
+          flex: 1, display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          pt: { xs: 2, md: 0 }, pb: { xs: 6, md: 8 },
+          overflow: 'visible',
+        }}>
+          {/* 아웃라인 Sueun */}
+          <Box component="h1" sx={{
+            m: 0, p: 0,
+            fontFamily: '"Dancing Script", cursive',
+            fontSize: { xs: '5.8rem', sm: '8.5rem', md: '13rem', lg: '16rem' },
+            fontWeight: 700,
+            lineHeight: 0.82,
+            color: 'transparent',
+            WebkitTextStroke: { xs: '1.5px #1a1a1a', sm: '1.8px #1a1a1a', md: '2.2px #1a1a1a' },
+            textAlign: 'center',
+            userSelect: 'none',
+            letterSpacing: '-0.02em',
+            ml: { xs: 0, md: '-4%' },
+            display: 'block',
+          }}>
+            Sueun
+          </Box>
+
+          {/* 채워진 An. — 살짝 오른쪽 오프셋 */}
+          <Box component="span" sx={{
+            display: 'block',
+            fontFamily: '"Dancing Script", cursive',
+            fontSize: { xs: '4.2rem', sm: '6.5rem', md: '10rem', lg: '12rem' },
+            fontWeight: 700,
+            lineHeight: 0.88,
+            color: '#1a1a1a',
+            textAlign: 'center',
+            letterSpacing: '-0.02em',
+            ml: { xs: 0, md: '7%' },
+            mb: { xs: 5, md: 7 },
+          }}>
+            An.
+          </Box>
+
+          {/* 크레딧 블록 */}
+          <Box sx={{ textAlign: 'center', zIndex: 2 }}>
+            <Typography sx={{
+              fontFamily: '"Playfair Display", serif',
+              fontSize: { xs: '0.6rem', md: '0.72rem' },
+              letterSpacing: '0.45em', color: '#1a1a1a',
+              textTransform: 'uppercase', fontWeight: 500, mb: 2,
+            }}>
+              UI/UX Web Designer
+            </Typography>
+            <Box sx={{
+              width: 32, height: '1px',
+              backgroundColor: '#b89d8d',
+              mx: 'auto', mb: 2,
+            }} />
+            <Box sx={{
+              display: 'flex', justifyContent: 'center',
+              gap: { xs: 3, md: 5 }, flexWrap: 'wrap',
+            }}>
+              {[
+                ['Education', '계명대학교 국제통상학'],
+                ['Role',      '신입 웹디자이너'],
+                ['Location',  'Seoul, Korea'],
+              ].map(([label, val]) => (
+                <Box key={label} sx={{ textAlign: 'center' }}>
+                  <Typography sx={{
+                    fontFamily: '"Playfair Display", serif',
+                    fontSize: '0.45rem', letterSpacing: '0.32em',
+                    color: '#b89d8d', textTransform: 'uppercase',
+                    display: 'block', mb: 0.4,
+                  }}>
+                    {label}
+                  </Typography>
+                  <Typography sx={{
+                    fontFamily: '"Playfair Display", serif',
+                    fontSize: '0.6rem', color: '#4a4040',
+                    letterSpacing: '0.05em', fontStyle: 'italic',
+                  }}>
+                    {val}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+
+        {/* ── 종이 찢김 하단 엣지 ── */}
+        <Box sx={{
+          position: 'absolute', bottom: -1, left: 0, right: 0,
+          height: { xs: 44, md: 62 }, zIndex: 5,
+          pointerEvents: 'none', lineHeight: 0,
+        }}>
+          <svg viewBox="0 0 1440 62" preserveAspectRatio="none"
+            style={{ width: '100%', height: '100%', display: 'block' }}>
+            <path d="M0,62 L0,26 C60,38 120,14 180,28 C240,42 300,16 360,30 C420,44 480,18 540,32 C600,46 660,20 720,34 C780,48 840,22 900,36 C960,50 1020,24 1080,36 C1140,48 1200,22 1260,34 C1320,46 1380,28 1440,36 L1440,62 Z"
+              fill="#ffffff"/>
+          </svg>
         </Box>
       </Box>
 
