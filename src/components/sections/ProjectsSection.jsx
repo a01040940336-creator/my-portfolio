@@ -1,48 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-
-const projects = [
-  {
-    id: 1,
-    title: 'PROJECT 01',
-    category: 'Brand Identity',
-    desc: '브랜드 아이덴티티 디자인. 로고, 컬러 시스템, 타이포그래피를 통해 일관된 브랜드 경험을 구축.',
-    height: 130,
-  },
-  {
-    id: 2,
-    title: 'PROJECT 02',
-    category: 'Web Design',
-    desc: '미니멀한 레이아웃과 여백 중심의 브랜드 웹사이트. 데스크탑·모바일 반응형 설계.',
-    height: 160,
-  },
-  {
-    id: 3,
-    title: 'PROJECT 03',
-    category: 'UI / UX',
-    desc: 'Figma 기반 모바일 앱 UI 설계. 사용자 여정 분석부터 와이어프레임, 프로토타입까지.',
-    height: 145,
-  },
-  {
-    id: 4,
-    title: 'PROJECT 04',
-    category: 'Editorial',
-    desc: '에디토리얼 스타일 랜딩 페이지. 잡지형 그리드와 대형 타이포그래피로 시선을 유도.',
-    height: 130,
-  },
-  {
-    id: 5,
-    title: 'PROJECT 05',
-    category: 'Interaction',
-    desc: '인터랙티브 웹 경험 디자인. 섬세한 모션과 전환 효과로 몰입감 있는 UX 구현.',
-    height: 150,
-  },
-]
+import { supabase } from '../../lib/supabase'
 
 export default function ProjectsSection() {
+  const [projects, setProjects] = useState([])
   const [hoveredId, setHoveredId] = useState(null)
+
+  useEffect(() => {
+    supabase
+      .from('projects')
+      .select('*')
+      .eq('is_published', true)
+      .order('sort_order', { ascending: true })
+      .then(({ data }) => {
+        if (data?.length) setProjects(data)
+      })
+  }, [])
+
   const active = projects.find((p) => p.id === hoveredId)
 
   return (
@@ -67,7 +43,7 @@ export default function ProjectsSection() {
           position: 'relative',
         }}
       >
-        {/* 좌측: 이미지 */}
+        {/* 좌측: 썸네일 프리뷰 */}
         <Box
           sx={{
             flex: '0 0 55%',
@@ -76,6 +52,27 @@ export default function ProjectsSection() {
             backgroundColor: 'var(--color-bg-secondary)',
           }}
         >
+          {/* 실제 썸네일 이미지 (호버 시) */}
+          {projects.map((p) => (
+            <Box
+              key={p.id}
+              component="img"
+              src={p.thumbnail_url}
+              alt={p.title}
+              sx={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: hoveredId === p.id ? 1 : 0,
+                transform: hoveredId === p.id ? 'scale(1)' : 'scale(1.04)',
+                transition: 'opacity 0.5s ease, transform 0.55s ease',
+              }}
+            />
+          ))}
+
+          {/* 기본 상태 패턴 배경 */}
           <Box
             sx={{
               position: 'absolute',
@@ -83,12 +80,13 @@ export default function ProjectsSection() {
               backgroundColor: 'var(--color-bg-tertiary)',
               backgroundImage:
                 'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 14px)',
-              opacity: hoveredId ? 1 : 0,
-              transform: hoveredId ? 'scale(1)' : 'scale(1.04)',
-              transition: 'opacity 0.5s ease, transform 0.55s ease',
+              opacity: hoveredId ? 0 : 1,
+              transition: 'opacity 0.35s ease',
+              pointerEvents: 'none',
             }}
           />
-          {/* 기본 상태 — 좌측 빈 영역 텍스트 */}
+
+          {/* 기본 상태 텍스트 */}
           <Box
             sx={{
               position: 'absolute',
@@ -114,7 +112,7 @@ export default function ProjectsSection() {
           </Box>
         </Box>
 
-        {/* 우측: 텍스트 정보 */}
+        {/* 우측: 프로젝트 정보 */}
         <Box
           sx={{
             flex: 1,
@@ -126,7 +124,7 @@ export default function ProjectsSection() {
             position: 'relative',
           }}
         >
-          {/* VIEW ALL / ARCHIVE — 우측 하단 고정 */}
+          {/* VIEW ALL — 우측 하단 고정 */}
           <Box
             sx={{
               position: 'absolute',
@@ -155,24 +153,9 @@ export default function ProjectsSection() {
             >
               VIEW ALL ↗
             </Typography>
-            <Typography
-              component={Link}
-              to="/projects"
-              variant="caption"
-              sx={{
-                color: 'var(--color-text-muted)',
-                letterSpacing: '0.18em',
-                fontSize: '0.68rem',
-                textDecoration: 'none',
-                whiteSpace: 'nowrap',
-                '&:hover': { color: 'var(--color-accent)' },
-                transition: 'color 0.2s',
-              }}
-            >
-              ARCHIVE ↗
-            </Typography>
           </Box>
-          {/* 기본 상태 — 우측 WORKS 텍스트 */}
+
+          {/* 기본 상태 — WORKS 워터마크 */}
           <Box
             sx={{
               position: 'absolute',
@@ -199,7 +182,7 @@ export default function ProjectsSection() {
             </Typography>
           </Box>
 
-          {/* 호버 상태 — 프로젝트 정보 */}
+          {/* 호버 상태 — 프로젝트 상세 정보 */}
           <Box
             sx={{
               opacity: hoveredId ? 1 : 0,
@@ -219,9 +202,10 @@ export default function ProjectsSection() {
                 userSelect: 'none',
               }}
             >
-              {active ? String(active.id).padStart(2, '0') : ''}
+              {active ? String(active.sort_order).padStart(2, '0') : ''}
             </Typography>
 
+            {/* 기술 스택 */}
             <Typography
               sx={{
                 fontSize: '0.62rem',
@@ -231,9 +215,10 @@ export default function ProjectsSection() {
                 mb: 1.5,
               }}
             >
-              {active?.category}
+              {active?.tech_stack?.join(' · ')}
             </Typography>
 
+            {/* 프로젝트 제목 */}
             <Typography
               sx={{
                 fontSize: { xs: '1.6rem', md: '2.6rem' },
@@ -247,6 +232,7 @@ export default function ProjectsSection() {
               {active?.title}
             </Typography>
 
+            {/* 설명 */}
             <Typography
               sx={{
                 color: 'var(--color-text-muted)',
@@ -256,12 +242,15 @@ export default function ProjectsSection() {
                 wordBreak: 'keep-all',
               }}
             >
-              {active?.desc}
+              {active?.description}
             </Typography>
 
+            {/* 링크 */}
             <Typography
-              component={Link}
-              to="/projects"
+              component="a"
+              href={active?.detail_url}
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
                 display: 'inline-block',
                 mt: { xs: 3, md: 4 },
@@ -312,26 +301,40 @@ export default function ProjectsSection() {
               onMouseLeave={() => setHoveredId(null)}
               sx={{
                 flexShrink: 0,
-                width: { xs: 160, md: 180 },
+                width: { xs: 160, md: 200 },
                 cursor: 'pointer',
                 opacity: hoveredId !== null && hoveredId !== p.id ? 0.3 : 1,
                 transition: 'opacity 0.35s ease',
               }}
             >
-              {/* 썸네일 이미지 */}
+              {/* 썸네일 */}
               <Box
                 sx={{
-                  height: p.height,
-                  backgroundColor: 'var(--color-bg-tertiary)',
-                  backgroundImage:
-                    'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 12px)',
+                  height: 130,
                   position: 'relative',
                   overflow: 'hidden',
                   outline: hoveredId === p.id ? '1.5px solid var(--color-accent)' : '1.5px solid transparent',
                   transition: 'outline-color 0.3s ease',
+                  backgroundColor: 'var(--color-bg-tertiary)',
+                  backgroundImage:
+                    'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 12px)',
                 }}
-              />
-              {/* 썸네일 타이틀 */}
+              >
+                <Box
+                  component="img"
+                  src={p.thumbnail_url}
+                  alt={p.title}
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </Box>
+
+              {/* 타이틀 */}
               <Typography
                 variant="caption"
                 sx={{
@@ -348,7 +351,6 @@ export default function ProjectsSection() {
               </Typography>
             </Box>
           ))}
-
         </Box>
       </Box>
     </Box>
