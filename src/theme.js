@@ -1,20 +1,20 @@
 import { createTheme } from '@mui/material/styles';
 
 const palette = {
-  primary:      '#F9B5C8',
-  primaryLight: '#FCE0EA',
-  primaryDark:  '#E8849F',
+  primary:      '#FFC7C7',
+  primaryLight: '#FFE0E0',
+  primaryDark:  '#FF9E9E',
   secondary:    '#111111',
-  accent:       '#E8849F',
+  accent:       '#FF9E9E',
   bgPrimary:    '#FFFFFF',
-  bgSecondary:  '#FFF5F8',
-  bgTertiary:   '#FCE8F0',
+  bgSecondary:  '#FDF4E3',
+  bgTertiary:   '#F9EDCC',
   bgBanner:     '#111111',
   textPrimary:  '#111111',
   textSecond:   '#333333',
   textMuted:    '#888888',
-  borderLight:  '#F5D5DF',
-  borderMid:    '#E8BFCC',
+  borderLight:  '#F5DCDC',
+  borderMid:    '#EABEBE',
 };
 
 const theme = createTheme({

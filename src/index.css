@@ -1,17 +1,17 @@
 :root {
-  /* Primary Colors — baby pink */
-  --color-primary:        #F9B5C8;
-  --color-primary-light:  #FCE0EA;
-  --color-primary-dark:   #E8849F;
+  /* Primary Colors — soft pink */
+  --color-primary:        #FFC7C7;
+  --color-primary-light:  #FFE0E0;
+  --color-primary-dark:   #FF9E9E;
 
   /* Secondary / Accent */
   --color-secondary:      #111111;
-  --color-accent:         #E8849F;
+  --color-accent:         #FF9E9E;
 
   /* Backgrounds */
   --color-bg-primary:     #FFFFFF;
-  --color-bg-secondary:   #FFF5F8;
-  --color-bg-tertiary:    #FCE8F0;
+  --color-bg-secondary:   #FDF4E3;
+  --color-bg-tertiary:    #F9EDCC;
   --color-bg-banner:      #111111;
 
   /* Text */
@@ -20,15 +20,15 @@
   --color-text-muted:     #888888;
 
   /* Border */
-  --color-border-light:   #F5D5DF;
-  --color-border-mid:     #E8BFCC;
+  --color-border-light:   #F5DCDC;
+  --color-border-mid:     #EABEBE;
 
   /* Interactive */
   --color-button-primary: #111111;
   --color-button-hover:   #333333;
-  --color-button-outline: #F9B5C8;
-  --color-link:           #E8849F;
-  --color-link-hover:     #D4718D;
+  --color-button-outline: #FFC7C7;
+  --color-link:           #FF9E9E;
+  --color-link-hover:     #F08080;
 
   /* Shadow */
   --color-shadow:         rgba(17, 17, 17, 0.08);
