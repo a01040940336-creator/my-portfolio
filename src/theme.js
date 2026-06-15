@@ -1,11 +1,11 @@
 import { createTheme } from '@mui/material/styles';
 
 const palette = {
-  primary:      '#FF6B7F',
-  primaryLight: '#FFB3BE',
-  primaryDark:  '#E84D64',
+  primary:      '#C97A8A',
+  primaryLight: '#E5B0BC',
+  primaryDark:  '#A85A6A',
   secondary:    '#111111',
-  accent:       '#FF6B7F',
+  accent:       '#C97A8A',
   bgPrimary:    '#FFFFFF',
   bgSecondary:  '#FFFFFF',
   bgTertiary:   '#F5F5F5',
