@@ -72,41 +72,84 @@ export default function ProjectsSection() {
             />
           ))}
 
-          {/* 기본 상태 패턴 배경 */}
+          {/* 기본 상태 — 콜라주 무드보드 */}
           <Box
             sx={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: 'var(--color-bg-tertiary)',
-              backgroundImage:
-                'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 14px)',
+              backgroundColor: '#F7F2EC',
               opacity: hoveredId ? 0 : 1,
-              transition: 'opacity 0.35s ease',
+              transition: 'opacity 0.4s ease',
               pointerEvents: 'none',
-            }}
-          />
-
-          {/* 기본 상태 텍스트 */}
-          <Box
-            sx={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'flex-end',
-              p: { xs: 4, md: 6 },
-              opacity: hoveredId ? 0 : 1,
-              transition: 'opacity 0.35s ease',
-              pointerEvents: 'none',
+              overflow: 'hidden',
             }}
           >
-            <Typography
-              sx={{
-                fontSize: { xs: '0.7rem', md: '0.72rem' },
-                letterSpacing: '0.35em',
-                color: 'var(--color-text-muted)',
-                textTransform: 'uppercase',
-              }}
-            >
+            {/* 좌측 수직 텍스트 */}
+            <Typography sx={{
+              position: 'absolute', left: 22, top: '50%',
+              transform: 'translateY(-50%) rotate(-90deg)',
+              fontSize: '0.58rem', letterSpacing: '0.45em',
+              color: 'var(--color-text-muted)', textTransform: 'uppercase',
+              whiteSpace: 'nowrap', userSelect: 'none',
+            }}>
+              Selected Works
+            </Typography>
+
+            {/* 우측 수직 텍스트 */}
+            <Typography sx={{
+              position: 'absolute', right: 22, top: '50%',
+              transform: 'translateY(-50%) rotate(90deg)',
+              fontSize: '0.58rem', letterSpacing: '0.45em',
+              color: 'var(--color-text-muted)', textTransform: 'uppercase',
+              whiteSpace: 'nowrap', userSelect: 'none',
+            }}>
+              Portfolio 2025
+            </Typography>
+
+            {/* 콜라주 이미지 1 — 좌상단, 반시계 기울기 */}
+            {projects[0] && (
+              <Box sx={{
+                position: 'absolute',
+                top: '6%', left: '10%',
+                width: '54%',
+                aspectRatio: '3 / 4',
+                overflow: 'hidden',
+                transform: 'rotate(-4deg)',
+                boxShadow: '0 10px 36px rgba(0,0,0,0.13)',
+                border: '7px solid #fff',
+                zIndex: 1,
+              }}>
+                <Box component="img" src={projects[0].thumbnail_url} alt={projects[0].title}
+                  sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </Box>
+            )}
+
+            {/* 콜라주 이미지 2 — 우하단, 시계 기울기 */}
+            {projects[1] && (
+              <Box sx={{
+                position: 'absolute',
+                bottom: '5%', right: '8%',
+                width: '46%',
+                aspectRatio: '3 / 4',
+                overflow: 'hidden',
+                transform: 'rotate(3.5deg)',
+                boxShadow: '0 10px 36px rgba(0,0,0,0.10)',
+                border: '7px solid #fff',
+                zIndex: 2,
+              }}>
+                <Box component="img" src={projects[1].thumbnail_url} alt={projects[1].title}
+                  sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              </Box>
+            )}
+
+            {/* 하단 힌트 텍스트 */}
+            <Typography sx={{
+              position: 'absolute', bottom: 20, left: '50%',
+              transform: 'translateX(-50%)',
+              fontSize: '0.6rem', letterSpacing: '0.38em',
+              color: 'var(--color-text-muted)', textTransform: 'uppercase',
+              whiteSpace: 'nowrap', userSelect: 'none',
+            }}>
               — hover to explore
             </Typography>
           </Box>
