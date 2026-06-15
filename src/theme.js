@@ -1,20 +1,20 @@
 import { createTheme } from '@mui/material/styles';
 
 const palette = {
-  primary:      '#C97A8A',
-  primaryLight: '#E5B0BC',
-  primaryDark:  '#A85A6A',
-  secondary:    '#111111',
-  accent:       '#C97A8A',
+  primary:      '#8D6E63',
+  primaryLight: '#E5DDD5',
+  primaryDark:  '#6D4C41',
+  secondary:    '#222222',
+  accent:       '#8D6E63',
   bgPrimary:    '#FFFFFF',
-  bgSecondary:  '#FFFFFF',
-  bgTertiary:   '#F5F5F5',
-  bgBanner:     '#111111',
-  textPrimary:  '#111111',
-  textSecond:   '#444444',
-  textMuted:    '#888888',
-  borderLight:  '#EEEEEE',
-  borderMid:    '#DDDDDD',
+  bgSecondary:  '#F5F2ED',
+  bgTertiary:   '#E5DDD5',
+  bgBanner:     '#222222',
+  textPrimary:  '#222222',
+  textSecond:   '#4A4040',
+  textMuted:    '#9E8E85',
+  borderLight:  '#E5DDD5',
+  borderMid:    '#C8BAB2',
 };
 
 const theme = createTheme({
@@ -53,13 +53,13 @@ const theme = createTheme({
         containedPrimary: {
           backgroundColor: palette.secondary,
           color: '#FFFFFF',
-          '&:hover': { backgroundColor: '#3A3A3A' },
+          '&:hover': { backgroundColor: '#3A3030' },
         },
         outlinedPrimary: {
           borderColor: palette.primary,
           color: palette.accent,
           '&:hover': {
-            borderColor: palette.accent,
+            borderColor: palette.primaryDark,
             backgroundColor: palette.primaryLight,
           },
         },
@@ -69,10 +69,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           border: `1px solid ${palette.borderLight}`,
-          boxShadow: `0 2px 12px rgba(26,26,26,0.08)`,
+          boxShadow: `0 2px 12px rgba(34,34,34,0.06)`,
           '&:hover': {
             borderColor: palette.accent,
-            boxShadow: `0 4px 20px rgba(26,26,26,0.12)`,
+            boxShadow: `0 4px 20px rgba(34,34,34,0.10)`,
           },
           transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
         },
@@ -81,7 +81,7 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: palette.bgPrimary,
+          backgroundColor: palette.bgSecondary,
           color: palette.textPrimary,
           boxShadow: `0 1px 0 ${palette.borderLight}`,
         },

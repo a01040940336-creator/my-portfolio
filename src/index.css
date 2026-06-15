@@ -1,38 +1,38 @@
 :root {
-  /* Primary Colors — dusty rose */
-  --color-primary:        #C97A8A;
-  --color-primary-light:  #E5B0BC;
-  --color-primary-dark:   #A85A6A;
+  /* Primary Colors — warm brown */
+  --color-primary:        #8D6E63;
+  --color-primary-light:  #E5DDD5;
+  --color-primary-dark:   #6D4C41;
 
   /* Secondary / Accent */
-  --color-secondary:      #111111;
-  --color-accent:         #C97A8A;
+  --color-secondary:      #222222;
+  --color-accent:         #8D6E63;
 
   /* Backgrounds */
   --color-bg-primary:     #FFFFFF;
-  --color-bg-secondary:   #FFFFFF;
-  --color-bg-tertiary:    #F5F5F5;
-  --color-bg-banner:      #111111;
+  --color-bg-secondary:   #F5F2ED;
+  --color-bg-tertiary:    #E5DDD5;
+  --color-bg-banner:      #222222;
 
   /* Text */
-  --color-text-primary:   #111111;
-  --color-text-secondary: #444444;
-  --color-text-muted:     #888888;
+  --color-text-primary:   #222222;
+  --color-text-secondary: #4A4040;
+  --color-text-muted:     #9E8E85;
 
   /* Border */
-  --color-border-light:   #EEEEEE;
-  --color-border-mid:     #DDDDDD;
+  --color-border-light:   #E5DDD5;
+  --color-border-mid:     #C8BAB2;
 
   /* Interactive */
-  --color-button-primary: #111111;
-  --color-button-hover:   #333333;
-  --color-button-outline: #C97A8A;
-  --color-link:           #C97A8A;
-  --color-link-hover:     #A85A6A;
+  --color-button-primary: #222222;
+  --color-button-hover:   #3A3030;
+  --color-button-outline: #8D6E63;
+  --color-link:           #8D6E63;
+  --color-link-hover:     #6D4C41;
 
   /* Shadow */
-  --color-shadow:         rgba(17, 17, 17, 0.08);
-  --color-overlay:        rgba(17, 17, 17, 0.50);
+  --color-shadow:         rgba(34, 34, 34, 0.08);
+  --color-overlay:        rgba(34, 34, 34, 0.50);
 }
 
 @media (prefers-contrast: high) {

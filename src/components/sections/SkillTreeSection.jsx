@@ -1,22 +1,16 @@
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import Chip from '@mui/material/Chip'
-import Divider from '@mui/material/Divider'
-import Grid from '@mui/material/Grid'
-import LinearProgress from '@mui/material/LinearProgress'
 
-const skillGroups = [
-  { category: 'Frontend', skills: ['React', 'JavaScript', 'HTML/CSS', 'MUI'] },
-  { category: 'Backend',  skills: ['Node.js', 'Python', 'REST API'] },
-  { category: 'Tools',    skills: ['Git', 'Figma', 'Photoshop', 'Illustrator', 'MS Office', 'Vite'] },
+const mainSkills = [
+  { name: 'Figma',        tag: 'Design Tool',  desc: 'UI 디자인 · 프로토타이핑' },
+  { name: 'Photoshop',    tag: 'Design Tool',  desc: '이미지 편집 · 그래픽' },
+  { name: 'Illustrator',  tag: 'Design Tool',  desc: '벡터 그래픽 · 브랜딩' },
+  { name: 'HTML5',        tag: 'Markup',       desc: '시맨틱 마크업' },
+  { name: 'CSS3',         tag: 'Styling',      desc: '레이아웃 · 반응형' },
 ]
 
-const progressSkills = [
-  { name: 'React', value: 70 },
-  { name: 'JavaScript', value: 65 },
-  { name: 'Python', value: 50 },
-]
+const subSkills = ['JavaScript', 'React', 'GitHub', 'Supabase']
 
 export default function SkillTreeSection() {
   return (
@@ -24,113 +18,175 @@ export default function SkillTreeSection() {
       component="section"
       sx={{
         backgroundColor: 'var(--color-bg-primary)',
-        py: { xs: 8, md: 10 },
+        py: { xs: 10, md: 14 },
         borderTop: '1px solid var(--color-border-light)',
         borderBottom: '1px solid var(--color-border-light)',
       }}
     >
       <Container maxWidth="md">
-        <Box sx={{ textAlign: 'center', mb: 5 }}>
-          <Typography
-            variant="overline"
-            sx={{ color: 'var(--color-accent)', letterSpacing: 4 }}
-          >
-            Skills
-          </Typography>
-          <Typography
-            variant="h3"
-            sx={{ mt: 1, fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 600 }}
-          >
-            Skill Tree 섹션
-          </Typography>
-          <Divider
-            sx={{ width: 40, mx: 'auto', mt: 2, borderColor: 'var(--color-primary)', borderWidth: 2 }}
-          />
-          <Typography variant="body2" sx={{ mt: 2, color: 'var(--color-text-muted)' }}>
-            여기는 Skill Tree 섹션입니다. 기술 스택을 트리나 프로그레스바로 시각화할 예정입니다.
-          </Typography>
-        </Box>
+
+        {/* 섹션 레이블 */}
+        <Typography
+          sx={{
+            fontSize: '0.65rem',
+            letterSpacing: '0.45em',
+            color: 'var(--color-accent)',
+            textTransform: 'uppercase',
+            mb: 2,
+          }}
+        >
+          Skills
+        </Typography>
 
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' },
-            gap: 3,
-            mb: 5,
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            alignItems: { xs: 'flex-start', md: 'flex-end' },
+            justifyContent: 'space-between',
+            gap: 2,
+            mb: { xs: 7, md: 10 },
           }}
         >
-          {skillGroups.map((group) => (
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.8rem', md: '2.6rem' },
+              fontWeight: 700,
+              letterSpacing: '-0.5px',
+              color: 'var(--color-text-primary)',
+              lineHeight: 1.2,
+            }}
+          >
+            Skill Set
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '0.82rem',
+              color: 'var(--color-text-muted)',
+              lineHeight: 1.7,
+              maxWidth: 280,
+              wordBreak: 'keep-all',
+            }}
+          >
+            디자인 툴부터 실제 구현까지,<br />아이디어를 화면으로 만듭니다.
+          </Typography>
+        </Box>
+
+        {/* 주력 기술 목록 */}
+        <Box sx={{ mb: { xs: 6, md: 8 } }}>
+          <Typography
+            sx={{
+              fontSize: '0.6rem',
+              letterSpacing: '0.4em',
+              color: 'var(--color-text-muted)',
+              textTransform: 'uppercase',
+              mb: 3,
+            }}
+          >
+            주력 기술
+          </Typography>
+
+          {mainSkills.map((skill, i) => (
             <Box
-              key={group.category}
+              key={skill.name}
               sx={{
-                p: 3,
-                backgroundColor: 'var(--color-bg-tertiary)',
-                border: '1px solid var(--color-border-light)',
-                borderRadius: 2,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                py: { xs: 2.5, md: 3 },
+                borderTop: '1px solid var(--color-border-light)',
+                ...(i === mainSkills.length - 1 && {
+                  borderBottom: '1px solid var(--color-border-light)',
+                }),
+                gap: 2,
+                '&:hover': {
+                  '& .skill-name': { color: 'var(--color-accent)' },
+                },
+                transition: 'all 0.2s ease',
+                cursor: 'default',
               }}
             >
               <Typography
-                variant="subtitle2"
+                className="skill-name"
                 sx={{
-                  color: 'var(--color-accent)',
+                  fontSize: { xs: '1.1rem', md: '1.3rem' },
                   fontWeight: 600,
-                  letterSpacing: 1,
-                  mb: 2,
-                  textTransform: 'uppercase',
-                  fontSize: '0.75rem',
+                  color: 'var(--color-text-primary)',
+                  letterSpacing: '-0.3px',
+                  transition: 'color 0.2s ease',
+                  minWidth: 120,
                 }}
               >
-                {group.category}
+                {skill.name}
               </Typography>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {group.skills.map((skill) => (
-                  <Chip
-                    key={skill}
-                    label={skill}
-                    size="small"
-                    sx={{
-                      backgroundColor: 'var(--color-primary-light)',
-                      color: 'var(--color-primary-dark)',
-                      border: '1px solid var(--color-primary)',
-                      fontSize: '0.78rem',
-                    }}
-                  />
-                ))}
-              </Box>
+
+              <Typography
+                sx={{
+                  fontSize: '0.7rem',
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  display: { xs: 'none', sm: 'block' },
+                  flexShrink: 0,
+                }}
+              >
+                {skill.tag}
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontSize: '0.82rem',
+                  color: 'var(--color-text-muted)',
+                  textAlign: 'right',
+                  flexShrink: 0,
+                }}
+              >
+                {skill.desc}
+              </Typography>
             </Box>
           ))}
         </Box>
 
-        <Box sx={{ maxWidth: 480, mx: 'auto' }}>
+        {/* 보유 기술 */}
+        <Box>
           <Typography
-            variant="subtitle2"
-            sx={{ color: 'var(--color-text-muted)', mb: 2, letterSpacing: 1, textTransform: 'uppercase', fontSize: '0.75rem' }}
+            sx={{
+              fontSize: '0.6rem',
+              letterSpacing: '0.4em',
+              color: 'var(--color-text-muted)',
+              textTransform: 'uppercase',
+              mb: 3,
+            }}
           >
-            Progress Preview
+            보유 기술 (학습 중)
           </Typography>
-          {progressSkills.map((s) => (
-            <Box key={s.name} sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)', fontWeight: 500 }}>
-                  {s.name}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
-                  {s.value}%
-                </Typography>
-              </Box>
-              <LinearProgress
-                variant="determinate"
-                value={s.value}
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+            {subSkills.map((skill) => (
+              <Box
+                key={skill}
                 sx={{
-                  height: 6,
-                  borderRadius: 3,
-                  backgroundColor: 'var(--color-primary-light)',
-                  '& .MuiLinearProgress-bar': { backgroundColor: 'var(--color-accent)' },
+                  px: 2.5,
+                  py: 1,
+                  border: '1px solid var(--color-border-mid)',
+                  color: 'var(--color-text-secondary)',
+                  fontSize: '0.82rem',
+                  letterSpacing: '0.05em',
+                  fontWeight: 500,
+                  '&:hover': {
+                    borderColor: 'var(--color-accent)',
+                    color: 'var(--color-accent)',
+                  },
+                  transition: 'border-color 0.2s, color 0.2s',
+                  cursor: 'default',
                 }}
-              />
-            </Box>
-          ))}
+              >
+                {skill}
+              </Box>
+            ))}
+          </Box>
         </Box>
+
       </Container>
     </Box>
   )

@@ -10,74 +10,90 @@ export default function HeroSection() {
       sx={{
         backgroundColor: 'var(--color-primary)',
         px: { xs: 3, sm: 5, md: 8 },
-        pt: { xs: 7, md: 9 },
-        pb: { xs: 6, md: 8 },
+        pt: { xs: 8, md: 11 },
+        pb: { xs: 7, md: 10 },
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      {/* 초대형 헤드라인 — 좌측 정렬 */}
+      {/* 상단 레이블 */}
+      <Typography
+        sx={{
+          fontSize: '0.68rem',
+          letterSpacing: '0.45em',
+          color: 'rgba(255,255,255,0.65)',
+          textTransform: 'uppercase',
+          mb: { xs: 4, md: 6 },
+          fontWeight: 400,
+        }}
+      >
+        Sueun An. — UI/UX Web Designer
+      </Typography>
+
+      {/* 메인 헤드라인 */}
       <Typography
         variant="h1"
         sx={{
-          fontWeight: 900,
-          lineHeight: 1.0,
-          letterSpacing: '-2px',
-          color: 'var(--color-secondary)',
-          fontSize: { xs: '2.4rem', sm: '3.2rem', md: '4.2rem', lg: '5rem' },
-          mb: { xs: 4, md: 6 },
-          maxWidth: 900,
+          fontWeight: 800,
+          lineHeight: 1.05,
+          letterSpacing: '-1.5px',
+          color: '#FFFFFF',
+          fontSize: { xs: '2.6rem', sm: '3.6rem', md: '5rem', lg: '6rem' },
+          mb: { xs: 5, md: 8 },
+          maxWidth: 860,
+          wordBreak: 'keep-all',
         }}
       >
-        Sueun An.
-        <br />
-        Portfolio.
+        사용자의 경험을<br />
+        디자인하는<br />
+        웹디자이너.
       </Typography>
 
-      {/* 하단 행: 소개 텍스트(좌) + pill 버튼(우) */}
+      {/* 하단: 서브카피(좌) + 버튼(우) */}
       <Box
         sx={{
           display: 'flex',
           flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: { xs: 'flex-start', sm: 'center' },
-          justifyContent: { xs: 'flex-start', sm: 'space-between' },
-          gap: { xs: 3, sm: 0 },
+          alignItems: { xs: 'flex-start', sm: 'flex-end' },
+          justifyContent: 'space-between',
+          gap: { xs: 4, sm: 0 },
         }}
       >
         <Typography
-          variant="body1"
           sx={{
-            color: 'var(--color-secondary)',
-            fontSize: { xs: '0.95rem', md: '1rem' },
-            lineHeight: 1.75,
-            opacity: 0.8,
-            maxWidth: 280,
+            color: 'rgba(255,255,255,0.75)',
+            fontSize: { xs: '0.88rem', md: '0.95rem' },
+            lineHeight: 1.9,
+            maxWidth: 380,
+            wordBreak: 'keep-all',
           }}
         >
-          UI/UX Web Designer<br />
-          Based in Korea.
+          서비스업 경험을 통해 고객의 시선에서 생각하는 습관을 갖게 되었고,<br />
+          이를 바탕으로 브랜드와 사용자를 연결하는 디자인을 추구합니다.
         </Typography>
 
         <Button
           component={Link}
           to="/projects"
-          variant="outlined"
           sx={{
-            borderColor: 'var(--color-secondary)',
-            color: 'var(--color-secondary)',
+            borderColor: 'rgba(255,255,255,0.6)',
+            color: '#FFFFFF',
+            border: '1px solid rgba(255,255,255,0.6)',
             borderRadius: '999px',
-            px: { xs: 4, md: 4 },
-            py: 1.2,
-            fontSize: '0.9rem',
+            px: { xs: 4, md: 5 },
+            py: 1.3,
+            fontSize: '0.82rem',
             fontWeight: 500,
-            letterSpacing: 0.3,
+            letterSpacing: '0.08em',
             whiteSpace: 'nowrap',
             flexShrink: 0,
-            alignSelf: { xs: 'center', sm: 'auto' },
+            alignSelf: { xs: 'flex-start', sm: 'auto' },
             '&:hover': {
-              backgroundColor: 'var(--color-secondary)',
+              backgroundColor: '#FFFFFF',
               color: 'var(--color-primary)',
-              borderColor: 'var(--color-secondary)',
+              borderColor: '#FFFFFF',
             },
-            transition: 'all 0.2s ease',
+            transition: 'all 0.25s ease',
           }}
         >
           View Projects
