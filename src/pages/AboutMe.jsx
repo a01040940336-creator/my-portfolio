@@ -1,167 +1,275 @@
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
+import LinearProgress from '@mui/material/LinearProgress'
+import { aboutData, skills, categoryMeta } from '../data/portfolioData'
 
-const timeline = [
-  { year: '2024 —', text: '웹디자인 학습 시작 · React, Figma 역량 개발' },
-  { year: '2023 —', text: '의류·서비스 업종 근무 · 고객 응대 및 브랜드 경험' },
-  { year: '2020 —', text: '국제통상학 전공 · 글로벌 비즈니스 커뮤니케이션' },
-]
+const CATEGORIES = ['Design', 'Frontend', 'Framework', 'Tools']
 
-const interests = [
-  { label: '패션 & 라이프스타일', desc: '트렌드를 관찰하고 브랜드 감도를 키웁니다.' },
-  { label: '브랜드 경험', desc: '다양한 브랜드의 디자인 언어를 분석하고 기록합니다.' },
-  { label: '학습 & 기록', desc: '새로운 것을 배우고 정리하는 습관을 갖고 있습니다.' },
-]
+const groupedSkills = CATEGORIES.reduce((acc, cat) => {
+  const list = skills.filter(s => s.category === cat)
+  if (list.length) acc[cat] = list
+  return acc
+}, {})
+
+function SkillBar({ skill }) {
+  const [hovered, setHovered] = useState(false)
+  const meta = categoryMeta[skill.category]
+
+  return (
+    <Box
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      sx={{
+        p: { xs: 2, md: 2.5 },
+        border: '1px solid',
+        borderColor: hovered ? meta.color : 'var(--color-border-light)',
+        backgroundColor: hovered ? meta.bg : '#fff',
+        transition: 'all 0.22s ease',
+        cursor: 'default',
+      }}
+    >
+      {/* 아이콘 + 이름 행 */}
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+        <Box sx={{
+          width: 34, height: 34, borderRadius: '8px',
+          backgroundColor: skill.bg, flexShrink: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <Typography sx={{
+            fontSize: '0.7rem', fontWeight: 800,
+            color: skill.color, fontStyle: 'italic',
+          }}>
+            {skill.abbr}
+          </Typography>
+        </Box>
+        <Typography sx={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>
+          {skill.name}
+        </Typography>
+        <Typography sx={{
+          ml: 'auto', fontSize: '0.72rem', fontWeight: 600,
+          color: meta.color,
+        }}>
+          {skill.level}%
+        </Typography>
+      </Box>
+
+      {/* 프로그레스바 */}
+      <LinearProgress
+        variant="determinate"
+        value={skill.level}
+        sx={{
+          height: 4, borderRadius: 2,
+          backgroundColor: 'var(--color-border-light)',
+          mb: 1.2,
+          '& .MuiLinearProgress-bar': {
+            backgroundColor: meta.color,
+            transition: 'transform 0.9s ease',
+          },
+        }}
+      />
+
+      {/* hover 설명 */}
+      <Box sx={{
+        maxHeight: hovered ? 60 : 0,
+        overflow: 'hidden',
+        opacity: hovered ? 1 : 0,
+        transition: 'max-height 0.28s ease, opacity 0.22s ease',
+      }}>
+        <Typography sx={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', lineHeight: 1.8 }}>
+          {skill.desc.join(' · ')}
+        </Typography>
+      </Box>
+    </Box>
+  )
+}
 
 export default function AboutMe() {
   return (
-    <Box
-      sx={{
-        backgroundColor: 'var(--color-bg-secondary)',
-        minHeight: 'calc(100vh - 64px)',
-        py: { xs: 8, md: 12 },
-      }}
-    >
-      <Container maxWidth="md">
+    <Box sx={{
+      backgroundColor: 'var(--color-bg-secondary)',
+      minHeight: 'calc(100vh - 64px)',
+    }}>
 
-        {/* 헤더 */}
-        <Box sx={{ mb: { xs: 8, md: 12 } }}>
-          <Typography
-            sx={{
-              fontSize: '0.65rem',
-              letterSpacing: '0.45em',
-              color: 'var(--color-accent)',
-              textTransform: 'uppercase',
-              mb: 2,
-            }}
-          >
-            About Me
-          </Typography>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: { xs: '2.2rem', md: '3.2rem' },
-              fontWeight: 800,
-              letterSpacing: '-1px',
-              color: 'var(--color-text-primary)',
-              lineHeight: 1.15,
-              mb: 3,
-              wordBreak: 'keep-all',
-            }}
-          >
-            안수은입니다.<br />웹디자이너로 성장 중입니다.
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: { xs: '0.92rem', md: '1rem' },
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.9,
-              maxWidth: 540,
-              wordBreak: 'keep-all',
-            }}
-          >
-            사용자의 시선으로 생각하고, 디자인으로 이야기하는 UI/UX 웹 디자이너입니다.
-            단순히 보기 좋은 화면이 아닌, 누구나 직관적으로 쓸 수 있는 경험을 만드는 것에 집중합니다.
-          </Typography>
-        </Box>
+      {/* ── 헤더 배너 ── */}
+      <Box sx={{
+        backgroundColor: 'var(--color-primary)',
+        px: { xs: 3, sm: 5, md: 8 },
+        pt: { xs: 8, md: 11 },
+        pb: { xs: 7, md: 10 },
+      }}>
+        <Typography sx={{
+          fontSize: '0.65rem', letterSpacing: '0.45em',
+          color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', mb: 2,
+        }}>
+          About Me
+        </Typography>
+        <Typography variant="h1" sx={{
+          fontSize: { xs: '2.4rem', md: '3.6rem' },
+          fontWeight: 800, letterSpacing: '-1.5px',
+          color: '#fff', lineHeight: 1.1, mb: 3,
+        }}>
+          안수은입니다.
+        </Typography>
 
-        {/* 디자인 시작 스토리 */}
-        <Box sx={{ mb: { xs: 8, md: 12 } }}>
-          <Typography
-            sx={{
-              fontSize: '0.6rem', letterSpacing: '0.4em',
-              color: 'var(--color-text-muted)', textTransform: 'uppercase', mb: 3,
-            }}
-          >
-            Story
-          </Typography>
-          <Box sx={{ borderLeft: '2px solid var(--color-primary)', pl: { xs: 3, md: 4 }, display: 'flex', flexDirection: 'column', gap: 3 }}>
-            <Typography sx={{ fontSize: { xs: '0.92rem', md: '0.98rem' }, color: 'var(--color-text-secondary)', lineHeight: 2.1, wordBreak: 'keep-all' }}>
-              국제통상학을 전공한 후 다양한 의류 및 서비스 업종에서 근무하며 고객과 가장 가까운 곳에서 경험을 쌓았습니다.
-            </Typography>
-            <Typography sx={{ fontSize: { xs: '0.92rem', md: '0.98rem' }, color: 'var(--color-text-secondary)', lineHeight: 2.1, wordBreak: 'keep-all' }}>
-              고객이 브랜드를 경험하는 과정에 관심을 가지게 되었고, 자연스럽게 디자인과 사용자 경험에 매력을 느끼며 웹디자인 분야에 도전하게 되었습니다.
-            </Typography>
-            <Typography sx={{ fontSize: { xs: '0.92rem', md: '0.98rem' }, color: 'var(--color-text-muted)', lineHeight: 2, wordBreak: 'keep-all' }}>
-              비전공자로 시작해 어려움도 있었지만 꾸준한 학습과 프로젝트 경험을 통해 디자인 역량을 키워가고 있습니다.
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* 타임라인 */}
-        <Box sx={{ mb: { xs: 8, md: 12 } }}>
-          <Typography sx={{ fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--color-text-muted)', textTransform: 'uppercase', mb: 3 }}>
-            Timeline
-          </Typography>
-          {timeline.map((item, i) => (
-            <Box
-              key={i}
-              sx={{
-                display: 'flex',
-                gap: { xs: 3, md: 5 },
-                py: 3,
-                borderTop: '1px solid var(--color-border-light)',
-                ...(i === timeline.length - 1 && { borderBottom: '1px solid var(--color-border-light)' }),
-              }}
-            >
-              <Typography sx={{ fontSize: '0.75rem', color: 'var(--color-accent)', fontWeight: 600, flexShrink: 0, minWidth: 60, pt: 0.2 }}>
-                {item.year}
-              </Typography>
-              <Typography sx={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', lineHeight: 1.8, wordBreak: 'keep-all' }}>
-                {item.text}
-              </Typography>
+        {/* 기본 정보 칩 */}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
+          {[
+            aboutData.basicInfo.role,
+            aboutData.basicInfo.education,
+            aboutData.basicInfo.major,
+          ].map((item) => (
+            <Box key={item} sx={{
+              px: 2, py: 0.7,
+              border: '1px solid rgba(255,255,255,0.4)',
+              borderRadius: '999px',
+              fontSize: '0.78rem',
+              color: 'rgba(255,255,255,0.85)',
+              letterSpacing: '0.03em',
+            }}>
+              {item}
             </Box>
           ))}
         </Box>
+      </Box>
 
-        {/* 관심사 */}
-        <Box sx={{ mb: { xs: 8, md: 12 } }}>
-          <Typography sx={{ fontSize: '0.6rem', letterSpacing: '0.4em', color: 'var(--color-text-muted)', textTransform: 'uppercase', mb: 3 }}>
-            Interests
+      <Container maxWidth="md" sx={{ py: { xs: 7, md: 11 } }}>
+
+        {/* ── 나의 디자인 스토리 ── */}
+        <Box sx={{ mb: { xs: 8, md: 11 } }}>
+          <Typography sx={{
+            fontSize: '0.6rem', letterSpacing: '0.4em',
+            color: 'var(--color-accent)', textTransform: 'uppercase', mb: 1.5,
+          }}>
+            Story
           </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 2 }}>
-            {interests.map((item) => (
-              <Box
-                key={item.label}
-                sx={{
-                  p: 3,
-                  backgroundColor: 'var(--color-bg-primary)',
-                  border: '1px solid var(--color-border-light)',
-                }}
-              >
-                <Typography sx={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-primary)', mb: 1 }}>
-                  {item.label}
+          <Typography variant="h2" sx={{
+            fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700,
+            letterSpacing: '-0.5px', mb: 4, color: 'var(--color-text-primary)',
+          }}>
+            나의 디자인 스토리
+          </Typography>
+          <Box sx={{ borderLeft: '2px solid var(--color-primary)', pl: { xs: 3, md: 4 }, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+            {aboutData.story.map((para, i) => (
+              <Typography key={i} sx={{
+                fontSize: { xs: '0.92rem', md: '0.98rem' },
+                color: i < 2 ? 'var(--color-text-secondary)' : 'var(--color-text-muted)',
+                lineHeight: 2, wordBreak: 'keep-all',
+              }}>
+                {para}
+              </Typography>
+            ))}
+          </Box>
+        </Box>
+
+        {/* ── 디자인 철학 ── */}
+        <Box sx={{ mb: { xs: 8, md: 11 } }}>
+          <Typography sx={{
+            fontSize: '0.6rem', letterSpacing: '0.4em',
+            color: 'var(--color-accent)', textTransform: 'uppercase', mb: 1.5,
+          }}>
+            Philosophy
+          </Typography>
+          <Typography variant="h2" sx={{
+            fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700,
+            letterSpacing: '-0.5px', mb: 4, color: 'var(--color-text-primary)',
+          }}>
+            디자인 철학
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {aboutData.philosophy.map((line, i) => (
+              <Box key={i} sx={{
+                py: 2.5, borderTop: '1px solid var(--color-border-light)',
+                ...(i === aboutData.philosophy.length - 1 && { borderBottom: '1px solid var(--color-border-light)' }),
+                display: 'flex', gap: 3, alignItems: 'flex-start',
+              }}>
+                <Typography sx={{
+                  fontSize: '0.6rem', color: 'var(--color-accent)',
+                  letterSpacing: '0.2em', mt: 0.4, flexShrink: 0,
+                }}>
+                  0{i + 1}
                 </Typography>
-                <Typography sx={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: 1.7, wordBreak: 'keep-all' }}>
-                  {item.desc}
+                <Typography sx={{
+                  fontSize: { xs: '0.9rem', md: '0.95rem' },
+                  color: 'var(--color-text-secondary)',
+                  lineHeight: 1.9, wordBreak: 'keep-all',
+                }}>
+                  {line}
                 </Typography>
               </Box>
             ))}
           </Box>
         </Box>
 
-        {/* 성장 목표 */}
-        <Box
-          sx={{
-            p: { xs: 4, md: 6 },
-            backgroundColor: 'var(--color-primary)',
-          }}
-        >
-          <Typography sx={{ fontSize: '0.6rem', letterSpacing: '0.4em', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', mb: 2 }}>
-            Goal
+        {/* ── Skills 전체 ── */}
+        <Box sx={{ mb: { xs: 8, md: 11 } }}>
+          <Typography sx={{
+            fontSize: '0.6rem', letterSpacing: '0.4em',
+            color: 'var(--color-accent)', textTransform: 'uppercase', mb: 1.5,
+          }}>
+            Skills
           </Typography>
-          <Typography
-            sx={{
-              fontSize: { xs: '1rem', md: '1.15rem' },
-              color: '#FFFFFF',
-              lineHeight: 2,
-              fontWeight: 300,
-              wordBreak: 'keep-all',
-            }}
-          >
-            사용자 경험을 고려한 UI/UX 역량을 지속적으로 발전시키고<br />
-            브랜드의 가치를 효과적으로 전달하는 웹디자이너로 성장하는 것
+          <Typography variant="h2" sx={{
+            fontSize: { xs: '1.6rem', md: '2rem' }, fontWeight: 700,
+            letterSpacing: '-0.5px', mb: 6, color: 'var(--color-text-primary)',
+          }}>
+            Skill Set
+          </Typography>
+
+          {Object.entries(groupedSkills).map(([cat, list]) => {
+            const meta = categoryMeta[cat]
+            return (
+              <Box key={cat} sx={{ mb: 6 }}>
+                {/* 카테고리 헤더 */}
+                <Box sx={{
+                  display: 'flex', alignItems: 'center', gap: 1.5, mb: 2.5,
+                }}>
+                  <Box sx={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: meta.color, flexShrink: 0 }} />
+                  <Typography sx={{
+                    fontSize: '0.72rem', fontWeight: 700,
+                    color: meta.color, letterSpacing: '0.2em', textTransform: 'uppercase',
+                  }}>
+                    {meta.label}
+                  </Typography>
+                </Box>
+
+                {/* 스킬 그리드: 3열 / 2열 / 1열 */}
+                <Box sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+                  gap: 1.5,
+                }}>
+                  {list.map(skill => <SkillBar key={skill.id} skill={skill} />)}
+                </Box>
+              </Box>
+            )
+          })}
+        </Box>
+
+        {/* ── 디자인 관심사 ── */}
+        <Box sx={{
+          p: { xs: 4, md: 6 },
+          backgroundColor: 'var(--color-primary)',
+        }}>
+          <Typography sx={{
+            fontSize: '0.6rem', letterSpacing: '0.4em',
+            color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', mb: 2,
+          }}>
+            Interests
+          </Typography>
+          <Typography variant="h3" sx={{
+            fontSize: { xs: '1.2rem', md: '1.5rem' }, fontWeight: 700,
+            color: '#fff', mb: 2.5,
+          }}>
+            디자인 관심사
+          </Typography>
+          <Typography sx={{
+            fontSize: { xs: '0.9rem', md: '0.95rem' },
+            color: 'rgba(255,255,255,0.82)',
+            lineHeight: 2, wordBreak: 'keep-all',
+          }}>
+            {aboutData.interest}
           </Typography>
         </Box>
 
