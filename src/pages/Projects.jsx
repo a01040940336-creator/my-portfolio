@@ -1,90 +1,290 @@
+import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import Chip from '@mui/material/Chip'
+import Button from '@mui/material/Button'
+import Skeleton from '@mui/material/Skeleton'
+import { supabase } from '../lib/supabase'
 
-const slots = [1, 2, 3, 4, 5, 6]
+function ProjectCard({ project }) {
+  const [imgError, setImgError] = useState(false)
+
+  return (
+    <Box
+      sx={{
+        backgroundColor: 'var(--color-bg-primary)',
+        border: '1px solid var(--color-border-light)',
+        overflow: 'hidden',
+        transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+        '&:hover': {
+          transform: 'translateY(-6px) scale(1.01)',
+          boxShadow: '0 16px 40px var(--color-shadow)',
+          '& .card-buttons': { opacity: 1, transform: 'translateY(0)' },
+        },
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* 16:9 썸네일 */}
+      <Box sx={{ position: 'relative', paddingTop: '56.25%', overflow: 'hidden', flexShrink: 0 }}>
+        {!imgError && project.thumbnail_url ? (
+          <Box
+            component="img"
+            src={project.thumbnail_url}
+            alt={project.title}
+            onError={() => setImgError(true)}
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              transition: 'transform 0.35s ease',
+              '&:hover': { transform: 'scale(1.04)' },
+            }}
+          />
+        ) : (
+          <Box
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: 'var(--color-bg-tertiary)',
+              backgroundImage:
+                'repeating-linear-gradient(45deg, var(--color-border-light) 0px, var(--color-border-light) 1px, transparent 1px, transparent 14px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography sx={{ fontSize: '0.7rem', letterSpacing: '0.3em', color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
+              {project.title}
+            </Typography>
+          </Box>
+        )}
+      </Box>
+
+      {/* 카드 본문 */}
+      <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', flex: 1 }}>
+        {/* 제목 */}
+        <Typography
+          sx={{
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            color: 'var(--color-text-primary)',
+            mb: 0.8,
+          }}
+        >
+          {project.title}
+        </Typography>
+
+        {/* 한 줄 설명 */}
+        <Typography
+          sx={{
+            fontSize: '0.85rem',
+            color: 'var(--color-text-secondary)',
+            lineHeight: 1.6,
+            mb: 2,
+            flex: 1,
+          }}
+        >
+          {project.description}
+        </Typography>
+
+        {/* 기술 스택 뱃지 */}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8, mb: 2.5 }}>
+          {project.tech_stack?.map((tech) => (
+            <Chip
+              key={tech}
+              label={tech}
+              size="small"
+              sx={{
+                fontSize: '0.68rem',
+                fontWeight: 500,
+                letterSpacing: '0.03em',
+                backgroundColor: 'var(--color-bg-tertiary)',
+                color: 'var(--color-text-secondary)',
+                border: '1px solid var(--color-border-light)',
+                borderRadius: '4px',
+                height: 24,
+                '& .MuiChip-label': { px: 1.2 },
+              }}
+            />
+          ))}
+        </Box>
+
+        {/* 버튼 영역 */}
+        <Box
+          className="card-buttons"
+          sx={{
+            display: 'flex',
+            gap: 1.2,
+            opacity: { xs: 1, md: 0.7 },
+            transform: { xs: 'none', md: 'translateY(4px)' },
+            transition: 'opacity 0.25s ease, transform 0.25s ease',
+          }}
+        >
+          <Button
+            component="a"
+            href={project.detail_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            sx={{
+              flex: 1,
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              backgroundColor: 'var(--color-secondary)',
+              color: '#fff',
+              borderRadius: '4px',
+              py: 0.9,
+              '&:hover': { backgroundColor: 'var(--color-button-hover)' },
+              transition: 'background-color 0.2s ease',
+            }}
+          >
+            Live Demo ↗
+          </Button>
+          <Button
+            component="a"
+            href={project.detail_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            variant="outlined"
+            sx={{
+              flex: 1,
+              fontSize: '0.75rem',
+              fontWeight: 600,
+              letterSpacing: '0.05em',
+              borderColor: 'var(--color-border-mid)',
+              color: 'var(--color-text-secondary)',
+              borderRadius: '4px',
+              py: 0.9,
+              '&:hover': {
+                borderColor: 'var(--color-accent)',
+                color: 'var(--color-accent)',
+                backgroundColor: 'transparent',
+              },
+              transition: 'border-color 0.2s ease, color 0.2s ease',
+            }}
+          >
+            View Details
+          </Button>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
+function CardSkeleton() {
+  return (
+    <Box sx={{ border: '1px solid var(--color-border-light)', overflow: 'hidden' }}>
+      <Skeleton variant="rectangular" sx={{ paddingTop: '56.25%' }} />
+      <Box sx={{ p: 3 }}>
+        <Skeleton width="60%" height={28} sx={{ mb: 1 }} />
+        <Skeleton width="90%" height={20} />
+        <Skeleton width="75%" height={20} sx={{ mb: 2 }} />
+        <Box sx={{ display: 'flex', gap: 1, mb: 2.5 }}>
+          <Skeleton width={60} height={24} />
+          <Skeleton width={50} height={24} />
+          <Skeleton width={55} height={24} />
+        </Box>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Skeleton variant="rectangular" height={34} sx={{ flex: 1, borderRadius: '4px' }} />
+          <Skeleton variant="rectangular" height={34} sx={{ flex: 1, borderRadius: '4px' }} />
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 
 export default function Projects() {
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading]   = useState(true)
+  const [error, setError]       = useState(null)
+
+  useEffect(() => {
+    supabase
+      .from('projects')
+      .select('*')
+      .eq('is_published', true)
+      .order('sort_order', { ascending: true })
+      .then(({ data, error }) => {
+        if (error) setError(error.message)
+        else setProjects(data ?? [])
+        setLoading(false)
+      })
+  }, [])
+
   return (
     <Box
       sx={{
         backgroundColor: 'var(--color-bg-secondary)',
         minHeight: 'calc(100vh - 64px)',
-        py: { xs: 8, md: 12 },
+        py: { xs: 7, md: 10 },
       }}
     >
-      <Container maxWidth="md">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+      <Container maxWidth="lg">
+        {/* 헤더 */}
+        <Box sx={{ mb: { xs: 5, md: 7 } }}>
           <Typography
-            variant="overline"
-            sx={{ color: 'var(--color-accent)', letterSpacing: 4 }}
+            sx={{
+              fontSize: '0.68rem',
+              letterSpacing: '0.45em',
+              color: 'var(--color-accent)',
+              textTransform: 'uppercase',
+              mb: 1.5,
+            }}
           >
-            Page
+            Portfolio
           </Typography>
-
           <Typography
-            variant="h2"
-            sx={{ mt: 1, mb: 2, fontSize: { xs: '1.8rem', md: '2.5rem' }, fontWeight: 700 }}
+            variant="h1"
+            sx={{
+              fontSize: { xs: '2.2rem', md: '3.2rem' },
+              fontWeight: 800,
+              letterSpacing: '-0.03em',
+              color: 'var(--color-text-primary)',
+              lineHeight: 1.1,
+            }}
           >
-            Projects
-          </Typography>
-
-          <Divider
-            sx={{ width: 48, mx: 'auto', my: 3, borderColor: 'var(--color-primary)', borderWidth: 2 }}
-          />
-
-          <Typography variant="body1" sx={{ color: 'var(--color-text-secondary)' }}>
-            Projects 페이지가 개발될 공간입니다.
-            <br />
-            포트폴리오 작품들이 들어갈 예정입니다.
+            Projects.
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
-          {slots.map((n) => (
-            <Grid item xs={12} sm={6} md={4} key={n}>
-              <Box
-                sx={{
-                  backgroundColor: 'var(--color-bg-primary)',
-                  border: '1px dashed var(--color-border-mid)',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                  transition: 'border-color 0.2s, box-shadow 0.2s',
-                  '&:hover': {
-                    borderColor: 'var(--color-accent)',
-                    boxShadow: '0 4px 20px var(--color-shadow)',
-                    borderStyle: 'solid',
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    height: 160,
-                    backgroundColor: 'var(--color-bg-tertiary)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderBottom: '1px dashed var(--color-border-light)',
-                  }}
-                >
-                  <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
-                    Thumbnail {n}
-                  </Typography>
-                </Box>
-                <Box sx={{ p: 2.5 }}>
-                  <Typography
-                    variant="subtitle2"
-                    sx={{ color: 'var(--color-text-muted)', fontStyle: 'italic' }}
-                  >
-                    Project {n} 제목이 들어갈 예정입니다
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
-          ))}
+        {/* 에러 */}
+        {error && (
+          <Typography sx={{ color: 'var(--color-accent)', mb: 4, fontSize: '0.9rem' }}>
+            데이터를 불러오지 못했어요: {error}
+          </Typography>
+        )}
+
+        {/* 카드 그리드 */}
+        <Grid container spacing={{ xs: 2.5, md: 3 }}>
+          {loading
+            ? [1, 2, 3].map((n) => (
+                <Grid item xs={12} sm={6} md={4} key={n}>
+                  <CardSkeleton />
+                </Grid>
+              ))
+            : projects.map((project) => (
+                <Grid item xs={12} sm={6} md={4} key={project.id}>
+                  <ProjectCard project={project} />
+                </Grid>
+              ))}
         </Grid>
+
+        {/* 프로젝트 없을 때 */}
+        {!loading && !error && projects.length === 0 && (
+          <Box sx={{ textAlign: 'center', py: 12 }}>
+            <Typography sx={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', letterSpacing: '0.1em' }}>
+              등록된 프로젝트가 없습니다.
+            </Typography>
+          </Box>
+        )}
       </Container>
     </Box>
   )
