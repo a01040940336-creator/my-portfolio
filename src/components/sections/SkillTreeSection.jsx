@@ -26,6 +26,28 @@ export default function SkillTreeSection() {
       }}
     >
       <Container maxWidth="md">
+        {/* 섹션 타이틀 */}
+        <Box sx={{ mb: { xs: 6, md: 8 } }}>
+          <Typography
+            sx={{
+              fontSize: '0.65rem', letterSpacing: '0.45em',
+              color: 'var(--color-accent)', textTransform: 'uppercase', mb: 1.5,
+            }}
+          >
+            Skills
+          </Typography>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2rem', md: '2.8rem' },
+              fontWeight: 700, letterSpacing: '-1px',
+              color: 'var(--color-text-primary)', lineHeight: 1.1,
+            }}
+          >
+            Skill Set.
+          </Typography>
+        </Box>
+
         <Box
           sx={{
             display: 'grid',

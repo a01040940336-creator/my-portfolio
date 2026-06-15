@@ -198,30 +198,96 @@ export default function ProjectsSection() {
             </Typography>
           </Box>
 
-          {/* 기본 상태 — WORKS 워터마크 */}
+          {/* 기본 상태 — 에디토리얼 라벨 */}
           <Box
             sx={{
               position: 'absolute',
               inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
               opacity: hoveredId ? 0 : 1,
               transition: 'opacity 0.35s ease',
               pointerEvents: 'none',
             }}
           >
-            <Typography
-              sx={{
-                fontSize: { xs: '3.5rem', md: '6rem' },
-                fontWeight: 900,
-                letterSpacing: '-3px',
-                color: 'var(--color-border-light)',
-                lineHeight: 1,
+            {/* 상단 레이블 */}
+            <Box sx={{ position: 'absolute', top: { xs: 22, md: 32 }, left: { xs: 20, md: 28 } }}>
+              <Typography sx={{
+                fontSize: '0.58rem', letterSpacing: '0.45em',
+                color: 'var(--color-text-muted)', textTransform: 'uppercase',
+                userSelect: 'none', lineHeight: 2,
+              }}>
+                Selected Works
+              </Typography>
+              <Typography sx={{
+                fontSize: '0.55rem', letterSpacing: '0.3em',
+                color: 'var(--color-border-mid)', textTransform: 'uppercase',
                 userSelect: 'none',
-              }}
-            >
-              WORKS
+              }}>
+                Portfolio 2025
+              </Typography>
+            </Box>
+
+            {/* 컬러 스와치 — 우측 세로 스택 */}
+            <Box sx={{
+              position: 'absolute', right: { xs: 20, md: 32 }, top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex', flexDirection: 'column', gap: 0.8,
+            }}>
+              {[
+                'var(--color-primary)',
+                'var(--color-primary-light)',
+                'var(--color-bg-tertiary)',
+              ].map((color, i) => (
+                <Box key={i} sx={{ width: { xs: 22, md: 26 }, height: { xs: 38, md: 48 }, backgroundColor: color }} />
+              ))}
+              <Typography sx={{
+                fontSize: '0.48rem', letterSpacing: '0.2em',
+                color: 'var(--color-text-muted)', textTransform: 'uppercase',
+                mt: 0.5, userSelect: 'none', textAlign: 'center',
+              }}>
+                palette
+              </Typography>
+            </Box>
+
+            {/* 프로젝트 번호 + 타이틀 목록 */}
+            <Box sx={{
+              position: 'absolute', left: { xs: 20, md: 28 }, top: '50%',
+              transform: 'translateY(-50%)',
+              display: 'flex', flexDirection: 'column', gap: { xs: 2.5, md: 3.5 },
+            }}>
+              {projects.map((p, i) => (
+                <Box key={p.id}>
+                  <Typography sx={{
+                    fontSize: '0.52rem', letterSpacing: '0.3em',
+                    color: 'var(--color-accent)', textTransform: 'uppercase',
+                    userSelect: 'none', mb: 0.4,
+                  }}>
+                    0{i + 1}
+                  </Typography>
+                  <Typography sx={{
+                    fontSize: { xs: '0.9rem', md: '1rem' },
+                    fontWeight: 600, color: 'var(--color-text-primary)',
+                    letterSpacing: '-0.2px', userSelect: 'none',
+                  }}>
+                    {p.title}
+                  </Typography>
+                  <Typography sx={{
+                    fontSize: '0.68rem', color: 'var(--color-text-muted)',
+                    letterSpacing: '0.05em', userSelect: 'none', mt: 0.3,
+                  }}>
+                    {p.tech_stack?.slice(0, 2).join(' / ')}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+
+            {/* 하단 힌트 */}
+            <Typography sx={{
+              position: 'absolute', bottom: { xs: 18, md: 24 }, left: { xs: 20, md: 28 },
+              fontSize: '0.52rem', letterSpacing: '0.35em',
+              color: 'var(--color-border-mid)', textTransform: 'uppercase',
+              userSelect: 'none',
+            }}>
+              — hover thumbnails to preview
             </Typography>
           </Box>
 
