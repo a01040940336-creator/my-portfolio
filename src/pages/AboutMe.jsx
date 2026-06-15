@@ -4,6 +4,7 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import LinearProgress from '@mui/material/LinearProgress'
 import { aboutData, skills, categoryMeta } from '../data/portfolioData'
+import CreativeArchive from '../components/sections/CreativeArchive'
 
 const CATEGORIES = ['Design', 'Frontend', 'Framework', 'Tools']
 
@@ -297,29 +298,11 @@ export default function AboutMe() {
           })}
         </Box>
 
-        {/* 관심사 */}
-        <Box sx={{ p: { xs: 4, md: 6 }, backgroundColor: 'var(--color-primary)' }}>
-          <Typography sx={{
-            fontSize: '0.6rem', letterSpacing: '0.4em',
-            color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', mb: 2,
-          }}>
-            Interests
-          </Typography>
-          <Typography variant="h3" sx={{
-            fontSize: { xs: '1.2rem', md: '1.5rem' }, fontWeight: 700,
-            color: '#fff', mb: 2.5,
-          }}>
-            디자인 관심사
-          </Typography>
-          <Typography sx={{
-            fontSize: { xs: '0.9rem', md: '0.95rem' },
-            color: 'rgba(255,255,255,0.82)', lineHeight: 2, wordBreak: 'keep-all',
-          }}>
-            {aboutData.interest}
-          </Typography>
-        </Box>
-
       </Container>
+
+      {/* ── Creative Archive (Interests 대체) ── */}
+      <CreativeArchive />
+
     </Box>
   )
 }
