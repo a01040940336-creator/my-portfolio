@@ -51,6 +51,8 @@ export default function ContactSection() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [snack, setSnack] = useState({ open: false, msg: '', severity: 'success' })
+  const [editId, setEditId] = useState(null)
+  const [editText, setEditText] = useState('')
 
   useEffect(() => {
     fetchEntries()
@@ -88,6 +90,31 @@ export default function ContactSection() {
     }
   }
 
+  async function deleteEntry(id) {
+    if (!window.confirm('이 방명록을 삭제할까요?')) return
+    const { error } = await supabase.from('guestbook').delete().eq('id', id)
+    if (error) {
+      setSnack({ open: true, msg: '삭제 중 오류가 발생했어요.', severity: 'error' })
+    } else {
+      setEntries((prev) => prev.filter((e) => e.id !== id))
+      setSnack({ open: true, msg: '삭제되었어요.', severity: 'success' })
+    }
+  }
+
+  async function saveEdit(id) {
+    const trimmed = editText.trim()
+    if (!trimmed) return
+    const { error } = await supabase.from('guestbook').update({ message: trimmed }).eq('id', id)
+    if (error) {
+      setSnack({ open: true, msg: '수정 중 오류가 발생했어요.', severity: 'error' })
+    } else {
+      setEntries((prev) => prev.map((e) => (e.id === id ? { ...e, message: trimmed } : e)))
+      setEditId(null)
+      setEditText('')
+      setSnack({ open: true, msg: '수정되었어요.', severity: 'success' })
+    }
+  }
+
   function formatDate(iso) {
     return new Date(iso).toLocaleDateString('ko-KR', {
       year: 'numeric',
@@ -95,6 +122,21 @@ export default function ContactSection() {
       day: 'numeric',
     })
   }
+
+  const actionBtnSx = (hoverColor) => ({
+    fontSize: '0.65rem',
+    letterSpacing: '0.1em',
+    color: 'var(--color-text-muted)',
+    background: 'none',
+    border: '1px solid var(--color-border-light)',
+    borderRadius: '2px',
+    px: 1.2,
+    py: 0.4,
+    cursor: 'pointer',
+    lineHeight: 1.8,
+    transition: 'color 0.2s, border-color 0.2s',
+    '&:hover': { color: hoverColor, borderColor: hoverColor },
+  })
 
   const inputSx = {
     '& .MuiInput-root': { fontSize: '0.9rem' },
@@ -397,6 +439,7 @@ export default function ContactSection() {
                   }),
                 }}
               >
+                {/* 헤더: 이름 + 키워드 + 날짜 + 액션 버튼 */}
                 <Box
                   sx={{
                     display: 'flex',
@@ -440,18 +483,79 @@ export default function ContactSection() {
                   >
                     {formatDate(entry.created_at)}
                   </Typography>
+
+                  {/* 수정 / 삭제 버튼 */}
+                  <Box sx={{ display: 'flex', gap: 1, ml: 1 }}>
+                    {editId === entry.id ? (
+                      <>
+                        <Typography
+                          component="button"
+                          onClick={() => saveEdit(entry.id)}
+                          sx={actionBtnSx('#22c55e')}
+                        >
+                          저장
+                        </Typography>
+                        <Typography
+                          component="button"
+                          onClick={() => { setEditId(null); setEditText('') }}
+                          sx={actionBtnSx('var(--color-text-muted)')}
+                        >
+                          취소
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography
+                          component="button"
+                          onClick={() => { setEditId(entry.id); setEditText(entry.message) }}
+                          sx={actionBtnSx('var(--color-text-muted)')}
+                        >
+                          수정
+                        </Typography>
+                        <Typography
+                          component="button"
+                          onClick={() => deleteEntry(entry.id)}
+                          sx={actionBtnSx('var(--color-accent)')}
+                        >
+                          삭제
+                        </Typography>
+                      </>
+                    )}
+                  </Box>
                 </Box>
 
-                <Typography
-                  sx={{
-                    color: 'var(--color-text-secondary)',
-                    fontSize: '0.88rem',
-                    lineHeight: 1.9,
-                    whiteSpace: 'pre-wrap',
-                  }}
-                >
-                  {entry.message}
-                </Typography>
+                {/* 본문: 수정 모드 or 일반 표시 */}
+                {editId === entry.id ? (
+                  <textarea
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    rows={3}
+                    style={{
+                      width: '100%',
+                      background: 'transparent',
+                      border: '1px solid var(--color-border-mid)',
+                      borderRadius: '4px',
+                      color: 'var(--color-text-secondary)',
+                      fontSize: '0.88rem',
+                      lineHeight: 1.9,
+                      padding: '8px 12px',
+                      fontFamily: 'inherit',
+                      resize: 'vertical',
+                      outline: 'none',
+                    }}
+                  />
+                ) : (
+                  <Typography
+                    sx={{
+                      color: 'var(--color-text-secondary)',
+                      fontSize: '0.88rem',
+                      lineHeight: 1.9,
+                      whiteSpace: 'pre-wrap',
+                    }}
+                  >
+                    {entry.message}
+                  </Typography>
+                )}
 
                 {entry.sns && (
                   <Typography

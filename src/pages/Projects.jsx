@@ -25,6 +25,8 @@ function ProjectCard({ project }) {
         },
         display: 'flex',
         flexDirection: 'column',
+        width: '100%',
+        height: '100%',
       }}
     >
       {/* 16:9 썸네일 */}
@@ -181,7 +183,7 @@ function ProjectCard({ project }) {
 
 function CardSkeleton() {
   return (
-    <Box sx={{ border: '1px solid var(--color-border-light)', overflow: 'hidden' }}>
+    <Box sx={{ border: '1px solid var(--color-border-light)', overflow: 'hidden', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Skeleton variant="rectangular" sx={{ paddingTop: '56.25%' }} />
       <Box sx={{ p: 3 }}>
         <Skeleton width="60%" height={28} sx={{ mb: 1 }} />
@@ -263,15 +265,15 @@ export default function Projects() {
         )}
 
         {/* 카드 그리드 */}
-        <Grid container spacing={{ xs: 2.5, md: 3 }}>
+        <Grid container spacing={{ xs: 2.5, md: 3 }} alignItems="stretch">
           {loading
             ? [1, 2, 3].map((n) => (
-                <Grid item xs={12} sm={6} md={4} key={n}>
+                <Grid item xs={12} sm={6} md={4} key={n} sx={{ display: 'flex' }}>
                   <CardSkeleton />
                 </Grid>
               ))
             : projects.map((project) => (
-                <Grid item xs={12} sm={6} md={4} key={project.id}>
+                <Grid item xs={12} sm={6} md={4} key={project.id} sx={{ display: 'flex' }}>
                   <ProjectCard project={project} />
                 </Grid>
               ))}
