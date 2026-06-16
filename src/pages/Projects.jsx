@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 import Button from '@mui/material/Button'
@@ -264,20 +263,18 @@ export default function Projects() {
           </Typography>
         )}
 
-        {/* 카드 그리드 */}
-        <Grid container spacing={{ xs: 2.5, md: 3 }} alignItems="stretch">
+        {/* 카드 그리드 — CSS Grid로 높이 자동 통일 */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+            gap: { xs: '20px', md: '24px' },
+          }}
+        >
           {loading
-            ? [1, 2, 3].map((n) => (
-                <Grid item xs={12} sm={6} md={4} key={n} sx={{ display: 'flex' }}>
-                  <CardSkeleton />
-                </Grid>
-              ))
-            : projects.map((project) => (
-                <Grid item xs={12} sm={6} md={4} key={project.id} sx={{ display: 'flex' }}>
-                  <ProjectCard project={project} />
-                </Grid>
-              ))}
-        </Grid>
+            ? [1, 2, 3].map((n) => <CardSkeleton key={n} />)
+            : projects.map((project) => <ProjectCard key={project.id} project={project} />)}
+        </Box>
 
         {/* 프로젝트 없을 때 */}
         {!loading && !error && projects.length === 0 && (

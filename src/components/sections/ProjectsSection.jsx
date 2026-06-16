@@ -7,6 +7,7 @@ import { supabase } from '../../lib/supabase'
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([])
   const [hoveredId, setHoveredId] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
 
   useEffect(() => {
     supabase
@@ -19,7 +20,8 @@ export default function ProjectsSection() {
       })
   }, [])
 
-  const active = projects.find((p) => p.id === hoveredId)
+  const activeId = hoveredId || selectedId
+  const active = projects.find((p) => p.id === activeId)
 
   return (
     <Box
@@ -65,9 +67,8 @@ export default function ProjectsSection() {
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
-                opacity: hoveredId === p.id ? 1 : 0,
-                transform: hoveredId === p.id ? 'scale(1)' : 'scale(1.04)',
-                transition: 'opacity 0.5s ease, transform 0.55s ease',
+                opacity: activeId === p.id ? 1 : 0,
+                transition: 'opacity 0.4s ease',
               }}
             />
           ))}
@@ -78,8 +79,8 @@ export default function ProjectsSection() {
               position: 'absolute',
               inset: 0,
               backgroundColor: '#F7F2EC',
-              opacity: hoveredId ? 0 : 1,
-              transition: 'opacity 0.4s ease',
+              opacity: activeId ? 0 : 1,
+              transition: 'opacity 0.3s ease',
               pointerEvents: 'none',
               overflow: 'hidden',
             }}
@@ -167,16 +168,12 @@ export default function ProjectsSection() {
             position: 'relative',
           }}
         >
-          {/* VIEW ALL — 우측 하단 고정 */}
+          {/* VIEW ALL — 우측 상단 고정 (겹침 방지) */}
           <Box
             sx={{
               position: 'absolute',
-              bottom: { xs: 20, md: 28 },
+              top: { xs: 20, md: 28 },
               right: { xs: 16, md: 32 },
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              gap: 0.8,
             }}
           >
             <Typography
@@ -203,13 +200,13 @@ export default function ProjectsSection() {
             sx={{
               position: 'absolute',
               inset: 0,
-              opacity: hoveredId ? 0 : 1,
-              transition: 'opacity 0.35s ease',
+              opacity: activeId ? 0 : 1,
+              transition: 'opacity 0.3s ease',
               pointerEvents: 'none',
             }}
           >
-            {/* 상단 레이블 */}
-            <Box sx={{ position: 'absolute', top: { xs: 22, md: 32 }, left: { xs: 20, md: 28 } }}>
+            {/* 상단 레이블 — VIEW ALL과 같은 top, 왼쪽 배치 */}
+            <Box sx={{ position: 'absolute', top: { xs: 20, md: 28 }, left: { xs: 20, md: 28 } }}>
               <Typography sx={{
                 fontSize: '0.58rem', letterSpacing: '0.45em',
                 color: 'var(--color-text-muted)', textTransform: 'uppercase',
@@ -291,12 +288,12 @@ export default function ProjectsSection() {
             </Typography>
           </Box>
 
-          {/* 호버 상태 — 프로젝트 상세 정보 */}
+          {/* 호버/클릭 상태 — 프로젝트 상세 정보 */}
           <Box
             sx={{
-              opacity: hoveredId ? 1 : 0,
-              transform: hoveredId ? 'translateY(0)' : 'translateY(18px)',
-              transition: 'opacity 0.45s ease 0.06s, transform 0.45s ease 0.06s',
+              opacity: activeId ? 1 : 0,
+              transition: 'opacity 0.3s ease',
+              pointerEvents: activeId ? 'auto' : 'none',
             }}
           >
             {/* 장식용 큰 번호 */}
@@ -363,6 +360,7 @@ export default function ProjectsSection() {
               sx={{
                 display: 'inline-block',
                 mt: { xs: 3, md: 4 },
+                mb: { xs: 2, md: 3 },
                 fontSize: '0.7rem',
                 letterSpacing: '0.3em',
                 color: 'var(--color-text-primary)',
@@ -408,12 +406,13 @@ export default function ProjectsSection() {
               key={p.id}
               onMouseEnter={() => setHoveredId(p.id)}
               onMouseLeave={() => setHoveredId(null)}
+              onClick={() => setSelectedId((prev) => (prev === p.id ? null : p.id))}
               sx={{
                 flexShrink: 0,
                 width: { xs: 160, md: 200 },
                 cursor: 'pointer',
-                opacity: hoveredId !== null && hoveredId !== p.id ? 0.3 : 1,
-                transition: 'opacity 0.35s ease',
+                opacity: activeId !== null && activeId !== p.id ? 0.3 : 1,
+                transition: 'opacity 0.3s ease',
               }}
             >
               {/* 썸네일 */}
@@ -422,7 +421,7 @@ export default function ProjectsSection() {
                   height: 130,
                   position: 'relative',
                   overflow: 'hidden',
-                  outline: hoveredId === p.id ? '1.5px solid var(--color-accent)' : '1.5px solid transparent',
+                  outline: activeId === p.id ? '1.5px solid var(--color-accent)' : '1.5px solid transparent',
                   transition: 'outline-color 0.3s ease',
                   backgroundColor: 'var(--color-bg-tertiary)',
                   backgroundImage:
@@ -451,7 +450,7 @@ export default function ProjectsSection() {
                   mt: 1,
                   fontSize: '0.65rem',
                   letterSpacing: '0.18em',
-                  color: hoveredId === p.id ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                  color: activeId === p.id ? 'var(--color-accent)' : 'var(--color-text-muted)',
                   transition: 'color 0.3s ease',
                   textTransform: 'uppercase',
                 }}
