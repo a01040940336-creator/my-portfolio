@@ -27,7 +27,7 @@ const CONTACT_INFO = [
     icon: <LocalPhoneOutlinedIcon />,
     label: 'PHONE',
     value: '010-4094-0336',
-    href: 'tel:010-4094-0336',
+    href: null,
   },
   {
     icon: <PlaceOutlinedIcon />,
