@@ -2,7 +2,7 @@ export const PROJECTS = [
   {
     id: 1,
     title: 'POP SPOT',
-    thumbnail_url: '/my-portfolio/thumbnail-projects.png',
+    thumbnail_url: '/my-portfolio/thumbnail-popspot.svg',
     sort_order: 1,
     tech_stack: ['React', 'MUI', 'Vite'],
     description: '팝업스토어·전시 큐레이션 SNS형 앱. 지역별 팝업/전시 정보를 모아보고 북마크할 수 있는 서비스.',
@@ -20,7 +20,7 @@ export const PROJECTS = [
   {
     id: 3,
     title: 'MOVION',
-    thumbnail_url: null,
+    thumbnail_url: '/my-portfolio/thumbnail-movion.svg',
     sort_order: 3,
     tech_stack: ['Vanilla JS', 'Vite', 'Supabase'],
     description: 'OTT 스트리밍 서비스 랜딩페이지. Spotify UI에서 영감을 받은 영화·드라마 콘텐츠 탐색 경험.',
