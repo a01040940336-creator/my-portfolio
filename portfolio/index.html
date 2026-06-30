@@ -20,6 +20,7 @@
         <a href="#skills">기술</a>
         <a href="#projects">프로젝트</a>
         <a href="#contact">연락처</a>
+        <a href="#guestbook">방명록</a>
       </nav>
     </div>
   </header>
@@ -34,6 +35,21 @@
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
         <a href="#contact" class="btn btn-outline">연락하기</a>
+      </div>
+
+      <!-- 최근 방명록 미리보기 -->
+      <div class="hero-recent-comment" id="recentComment" style="display:none;">
+        <div class="hero-recent-label">💬 최근 방명록</div>
+        <div class="hero-recent-body">
+          <div class="hero-recent-text">
+            <strong id="recentName"></strong>
+            <p id="recentMessage"></p>
+          </div>
+          <div class="hero-recent-actions">
+            <button class="comment-action-btn edit-btn" onclick="editRecentComment()">✏️ 수정</button>
+            <button class="comment-action-btn delete-btn" onclick="deleteRecentComment()">🗑️ 삭제</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-bg-circle c1"></div>
@@ -225,6 +241,30 @@
         </div>
         <button type="submit" class="btn btn-primary full-width">메시지 보내기</button>
       </form>
+    </div>
+  </section>
+
+  <!-- ===== GUESTBOOK ===== -->
+  <section class="section guestbook" id="guestbook">
+    <div class="container">
+      <p class="section-label center">Guestbook</p>
+      <h2 class="section-title center">방명록</h2>
+
+      <form class="guestbook-form" id="guestbookForm">
+        <div class="guestbook-form-fields">
+          <div class="form-group">
+            <label for="guestName">이름</label>
+            <input type="text" id="guestName" placeholder="이름을 입력하세요" required />
+          </div>
+          <div class="form-group">
+            <label for="guestMsg">메시지</label>
+            <textarea id="guestMsg" rows="3" placeholder="방명록을 남겨주세요 :)" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">등록하기</button>
+      </form>
+
+      <div class="guestbook-list" id="guestbookList"></div>
     </div>
   </section>
 

@@ -38,9 +38,10 @@ export default function ProjectsSection() {
       {/* ── 상단 프리뷰 영역 ── */}
       <Box
         sx={{
-          flex: 1,
-          minHeight: 0,
+          flex: { xs: '0 0 auto', md: 1 },
+          minHeight: { xs: 'auto', md: 0 },
           display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           overflow: 'hidden',
           position: 'relative',
         }}
@@ -48,7 +49,8 @@ export default function ProjectsSection() {
         {/* 좌측: 썸네일 프리뷰 */}
         <Box
           sx={{
-            flex: '0 0 55%',
+            flex: { xs: '0 0 auto', md: '0 0 55%' },
+            height: { xs: 'clamp(220px, 56vw, 380px)', md: 'auto' },
             position: 'relative',
             overflow: 'hidden',
             backgroundColor: 'var(--color-bg-secondary)',
@@ -159,12 +161,13 @@ export default function ProjectsSection() {
         {/* 우측: 프로젝트 정보 */}
         <Box
           sx={{
-            flex: 1,
+            flex: { xs: '0 0 auto', md: 1 },
+            minHeight: { xs: 360, md: 0 },
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-end',
-            p: { xs: 4, md: 8 },
-            pb: { xs: 5, md: 7 },
+            p: { xs: 3, md: 8 },
+            pb: { xs: 4, md: 7 },
             position: 'relative',
           }}
         >
@@ -299,12 +302,12 @@ export default function ProjectsSection() {
             {/* 장식용 큰 번호 */}
             <Typography
               sx={{
-                fontSize: { xs: '5rem', md: '9rem' },
+                fontSize: { xs: '3.5rem', md: '9rem' },
                 fontWeight: 900,
                 lineHeight: 0.85,
                 color: 'var(--color-border-light)',
-                letterSpacing: '-4px',
-                mb: { xs: 2, md: 3 },
+                letterSpacing: { xs: '-2px', md: '-4px' },
+                mb: { xs: 1.5, md: 3 },
                 userSelect: 'none',
               }}
             >

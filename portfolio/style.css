@@ -221,6 +221,95 @@ ul { list-style: none; }
 .back-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .back-top:hover { background: var(--primary-dark); transform: translateY(-3px); }
 
+/* ===== HERO RECENT COMMENT ===== */
+.hero-recent-comment {
+  margin-top: 36px;
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  max-width: 520px;
+  animation: fadeInUp 0.5s ease;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-recent-label {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--primary); text-transform: uppercase; margin-bottom: 10px;
+}
+.hero-recent-body {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+}
+.hero-recent-text strong {
+  font-size: 0.9rem; color: var(--text); display: block; margin-bottom: 4px;
+}
+.hero-recent-text p {
+  font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;
+  word-break: break-word;
+}
+.hero-recent-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+/* ===== GUESTBOOK ===== */
+.guestbook { background: var(--bg-alt); }
+
+.guestbook-form {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px; margin-bottom: 48px;
+}
+.guestbook-form-fields { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+
+.guestbook-list { display: flex; flex-direction: column; gap: 16px; }
+
+.comment-card {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: border-color var(--transition);
+}
+.comment-card:hover { border-color: rgba(108, 99, 255, 0.3); }
+
+.comment-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.comment-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; font-weight: 800; color: #fff; flex-shrink: 0;
+}
+.comment-meta { flex: 1; }
+.comment-name { font-size: 0.95rem; font-weight: 700; display: block; }
+.comment-date { font-size: 0.78rem; color: var(--text-muted); }
+.comment-actions { display: flex; gap: 8px; margin-left: auto; }
+
+.comment-text { font-size: 0.93rem; color: var(--text-muted); line-height: 1.7; }
+
+/* 수정/삭제 버튼 */
+.comment-action-btn {
+  padding: 5px 12px; border-radius: 50px; font-size: 0.78rem; font-weight: 600;
+  border: 1px solid var(--border); background: transparent;
+  cursor: pointer; transition: all var(--transition); color: var(--text-muted);
+}
+.edit-btn:hover { border-color: var(--primary); color: var(--primary); }
+.delete-btn:hover { border-color: var(--secondary); color: var(--secondary); }
+.save-btn { border-color: #22c55e; color: #22c55e; }
+.save-btn:hover { background: #22c55e; color: #fff; }
+.cancel-btn:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* 수정 텍스트에어리어 */
+.edit-textarea {
+  width: 100%; background: var(--bg); border: 1px solid var(--primary);
+  border-radius: var(--radius-sm); color: var(--text); padding: 10px 14px;
+  font-size: 0.93rem; font-family: inherit; resize: vertical; outline: none;
+  margin-bottom: 10px;
+}
+.edit-actions { display: flex; gap: 8px; }
+
+.no-comments {
+  text-align: center; color: var(--text-muted); padding: 40px 0; font-size: 0.95rem;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; }

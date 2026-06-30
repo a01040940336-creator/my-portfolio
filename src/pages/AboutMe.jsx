@@ -175,17 +175,17 @@ export default function AboutMe() {
       {/* ═══════════════════════════════════════════
           이미지 섹션 — 40 : 60 비대칭
       ═══════════════════════════════════════════ */}
-      <Box sx={{ display: 'flex', width: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, width: '100%' }}>
 
-        {/* 좌: 세로 이미지 40% */}
-        <Box sx={{ flex: '0 0 40%', position: 'relative' }}>
+        {/* 좌: 세로 이미지 */}
+        <Box sx={{ flex: { xs: '1 1 auto', md: '0 0 40%' }, position: 'relative' }}>
           <Box
             component="img"
             src="https://picsum.photos/seed/sueun-a/800/1000"
             alt="portfolio visual 01"
             sx={{
               width: '100%',
-              height: { xs: 260, sm: 400, md: 560 },
+              height: { xs: 240, sm: 380, md: 560 },
               display: 'block',
               objectFit: 'cover',
             }}
@@ -197,15 +197,15 @@ export default function AboutMe() {
           </Box>
         </Box>
 
-        {/* 우: 가로 이미지 60% */}
-        <Box sx={{ flex: '0 0 60%' }}>
+        {/* 우: 가로 이미지 */}
+        <Box sx={{ flex: { xs: '1 1 auto', md: '0 0 60%' } }}>
           <Box
             component="img"
             src="https://picsum.photos/seed/sueun-b/1200/800"
             alt="portfolio visual 02"
             sx={{
               width: '100%',
-              height: { xs: 260, sm: 400, md: 560 },
+              height: { xs: 200, sm: 320, md: 560 },
               display: 'block',
               objectFit: 'cover',
             }}
