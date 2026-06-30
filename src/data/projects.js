@@ -1,0 +1,38 @@
+export const PROJECTS = [
+  {
+    id: 1,
+    title: 'POP SPOT',
+    thumbnail_url: '/my-portfolio/thumbnail-projects.png',
+    sort_order: 1,
+    tech_stack: ['React', 'MUI', 'Vite'],
+    description: '팝업스토어·전시 큐레이션 SNS형 앱. 지역별 팝업/전시 정보를 모아보고 북마크할 수 있는 서비스.',
+    detail_url: 'https://a01040940336-creator.github.io/my_ai_web/lecture1/mini_sns/',
+  },
+  {
+    id: 2,
+    title: '집담',
+    thumbnail_url: '/my-portfolio/thumbnail-jipddam.jpg',
+    sort_order: 2,
+    tech_stack: ['React', 'MUI', 'Supabase'],
+    description: '누구나 자유롭게 글을 올리고 소통할 수 있는 커뮤니티 플랫폼.',
+    detail_url: 'https://a01040940336-creator.github.io/my_ai_web/lecture1/my-community/',
+  },
+  {
+    id: 3,
+    title: 'MOVION',
+    thumbnail_url: null,
+    sort_order: 3,
+    tech_stack: ['Vanilla JS', 'Vite', 'Supabase'],
+    description: 'OTT 스트리밍 서비스 랜딩페이지. Spotify UI에서 영감을 받은 영화·드라마 콘텐츠 탐색 경험.',
+    detail_url: 'https://a01040940336-creator.github.io/my_ai_web/lecture1/new_project/',
+  },
+  {
+    id: 4,
+    title: 'Coordi Archive',
+    thumbnail_url: '/my-portfolio/thumbnail-coordi.png',
+    sort_order: 4,
+    tech_stack: ['React', 'TypeScript', 'Tailwind'],
+    description: '하이패션 에디토리얼 사진을 아카이빙하는 큐레이션 플랫폼.',
+    detail_url: 'https://a01040940336-creator.github.io/coordi-archive/',
+  },
+]

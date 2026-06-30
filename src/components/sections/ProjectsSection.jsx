@@ -1,24 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import { supabase } from '../../lib/supabase'
+import { PROJECTS } from '../../data/projects'
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState([])
+  const projects = PROJECTS
   const [hoveredId, setHoveredId] = useState(null)
   const [selectedId, setSelectedId] = useState(null)
-
-  useEffect(() => {
-    supabase
-      .from('projects')
-      .select('*')
-      .eq('is_published', true)
-      .order('sort_order', { ascending: true })
-      .then(({ data }) => {
-        if (data?.length) setProjects(data)
-      })
-  }, [])
 
   const activeId = hoveredId || selectedId
   const active = projects.find((p) => p.id === activeId)

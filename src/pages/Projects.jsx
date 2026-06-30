@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
 import Button from '@mui/material/Button'
-import Skeleton from '@mui/material/Skeleton'
-import { supabase } from '../lib/supabase'
+import { PROJECTS } from '../data/projects'
 
 function ProjectCard({ project }) {
   const [imgError, setImgError] = useState(false)
@@ -180,45 +179,8 @@ function ProjectCard({ project }) {
   )
 }
 
-function CardSkeleton() {
-  return (
-    <Box sx={{ border: '1px solid var(--color-border-light)', overflow: 'hidden', width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Skeleton variant="rectangular" sx={{ paddingTop: '56.25%' }} />
-      <Box sx={{ p: 3 }}>
-        <Skeleton width="60%" height={28} sx={{ mb: 1 }} />
-        <Skeleton width="90%" height={20} />
-        <Skeleton width="75%" height={20} sx={{ mb: 2 }} />
-        <Box sx={{ display: 'flex', gap: 1, mb: 2.5 }}>
-          <Skeleton width={60} height={24} />
-          <Skeleton width={50} height={24} />
-          <Skeleton width={55} height={24} />
-        </Box>
-        <Box sx={{ display: 'flex', gap: 1 }}>
-          <Skeleton variant="rectangular" height={34} sx={{ flex: 1, borderRadius: '4px' }} />
-          <Skeleton variant="rectangular" height={34} sx={{ flex: 1, borderRadius: '4px' }} />
-        </Box>
-      </Box>
-    </Box>
-  )
-}
-
 export default function Projects() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading]   = useState(true)
-  const [error, setError]       = useState(null)
-
-  useEffect(() => {
-    supabase
-      .from('projects')
-      .select('*')
-      .eq('is_published', true)
-      .order('sort_order', { ascending: true })
-      .then(({ data, error }) => {
-        if (error) setError(error.message)
-        else setProjects(data ?? [])
-        setLoading(false)
-      })
-  }, [])
+  const projects = PROJECTS
 
   return (
     <Box
@@ -256,14 +218,7 @@ export default function Projects() {
           </Typography>
         </Box>
 
-        {/* 에러 */}
-        {error && (
-          <Typography sx={{ color: 'var(--color-accent)', mb: 4, fontSize: '0.9rem' }}>
-            데이터를 불러오지 못했어요: {error}
-          </Typography>
-        )}
-
-        {/* 카드 그리드 — CSS Grid로 높이 자동 통일 */}
+        {/* 카드 그리드 */}
         <Box
           sx={{
             display: 'grid',
@@ -271,19 +226,10 @@ export default function Projects() {
             gap: { xs: '20px', md: '24px' },
           }}
         >
-          {loading
-            ? [1, 2, 3].map((n) => <CardSkeleton key={n} />)
-            : projects.map((project) => <ProjectCard key={project.id} project={project} />)}
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
         </Box>
-
-        {/* 프로젝트 없을 때 */}
-        {!loading && !error && projects.length === 0 && (
-          <Box sx={{ textAlign: 'center', py: 12 }}>
-            <Typography sx={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', letterSpacing: '0.1em' }}>
-              등록된 프로젝트가 없습니다.
-            </Typography>
-          </Box>
-        )}
       </Container>
     </Box>
   )
