@@ -169,6 +169,68 @@ export default function AboutMe() {
         </Box>
       </Box>
 
+      {/* ═══════════════════════════════════════════
+          PROFILE INFO — 학력 / 경력 / 스킬 및 자격
+      ═══════════════════════════════════════════ */}
+      <Box sx={{
+        px: { xs: 3, sm: 5, md: 7 },
+        pb: { xs: 7, md: 9 },
+        borderTop: '1px solid #DEDEDE',
+        pt: { xs: 6, md: 7 },
+      }}>
+        <Box sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+          gap: { xs: 5, md: 0 },
+        }}>
+
+          {/* 학력 */}
+          <Box sx={{ pr: { md: 6 } }}>
+            <Typography sx={{
+              fontSize: '0.58rem', letterSpacing: '0.22em',
+              color: '#777777', textTransform: 'uppercase', mb: 2,
+            }}>
+              Education
+            </Typography>
+            <Typography sx={{ fontSize: '0.92rem', fontWeight: 600, color: '#111111', lineHeight: 1.6 }}>
+              계명대학교
+            </Typography>
+            <Typography sx={{ fontSize: '0.88rem', color: '#555555', lineHeight: 1.8 }}>
+              국제통상학전공
+            </Typography>
+          </Box>
+
+          {/* 경력 */}
+          <Box sx={{
+            px: { md: 6 },
+            borderLeft: { md: '1px solid #DEDEDE' },
+          }}>
+            <Typography sx={{
+              fontSize: '0.58rem', letterSpacing: '0.22em',
+              color: '#777777', textTransform: 'uppercase', mb: 2,
+            }}>
+              Experience
+            </Typography>
+            <Box sx={{ height: 44 }} />
+          </Box>
+
+          {/* 스킬 및 자격 */}
+          <Box sx={{
+            pl: { md: 6 },
+            borderLeft: { md: '1px solid #DEDEDE' },
+          }}>
+            <Typography sx={{
+              fontSize: '0.58rem', letterSpacing: '0.22em',
+              color: '#777777', textTransform: 'uppercase', mb: 2,
+            }}>
+              Skills &amp; Certifications
+            </Typography>
+            <Box sx={{ height: 44 }} />
+          </Box>
+
+        </Box>
+      </Box>
+
       {/* 가는 구분선 */}
       <Box sx={{ borderTop: '1px solid #DEDEDE', mx: { xs: 3, md: 7 } }} />
 
